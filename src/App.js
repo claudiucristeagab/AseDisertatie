@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
-import { Header } from './shared/Header'
+import {BrowserRouter, Route} from 'react-router-dom';
+import { Header } from './shared/Header';
+import { RentalDetail } from './components/rental/RentalDetail';
+import { RentalList } from './components/rental/RentalList';
 import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+
   render() {
     return (
-      <div className="App">
-        <Header/>
-      </div>
+      <BrowserRouter>
+        <div className="App">
+          <Header/>
+          <div className='container'>
+            <Route exact path="/" component={RentalList}/>
+            <Route exact path="/test" component={RentalDetail}/>
+          </div>
+        </div>
+      </BrowserRouter>
     );
   }
 }
