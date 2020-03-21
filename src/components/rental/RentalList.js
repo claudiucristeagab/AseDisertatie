@@ -1,19 +1,19 @@
 import React from 'react'
 import { RentalCard } from './RentalCard'
+import { connect } from 'react-redux';
 
-export class RentalList extends React.Component {
+class RentalList extends React.Component {
     constructor(){
         super();
-
-        this.state = {
-            rentals: [1,2,3]
-        };
     }
 
     mapAndRender(){
-        return this.state.rentals.map((rental, index) => {
+        return this.props.rentals.map((rental, index) => {
             return (
-                <RentalCard key={index}/>
+                <RentalCard 
+                    key={index} 
+                    rental={rental}
+                />
             )
         })
     }
@@ -28,3 +28,11 @@ export class RentalList extends React.Component {
         )
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        rentals: state.rentals
+    }
+}
+
+export default connect(mapStateToProps)(RentalList)

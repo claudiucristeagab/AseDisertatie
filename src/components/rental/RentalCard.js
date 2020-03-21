@@ -1,17 +1,21 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
-export function RentalCard() {
+export function RentalCard(props) {
+    const rental = props.rental;
+    const detailLink = '/rentals/' + rental.id;
     return (
         <div class='col-md-3 col-xs-6'>
-            <div class='card bwm-card'>
-                <img class='card-img-top' src='http://via.placeholder.com/350x250' alt=''></img>
-                <div class='card-block'>
-                <h6 class='card-subtitle'>Whole Apartment &#183; New York</h6>
-                <h4 class='card-title'>Some nice apartment</h4>
-                <p class='card-text'>$240 per Night &#183; Free Cancelation</p>
-                <a href='' class='card-link'>More Info</a>
+            <Link to={detailLink}>
+                <div class='card bwm-card'>
+                    <img class='card-img-top' src={rental.image} alt=''></img>
+                    <div class='card-block'>
+                        <h6 class='card-subtitle'>{rental.shared ? 'Shared' : 'Whole'} {rental.category} &#183; {rental.city}</h6>
+                        <h4 class='card-title'>{rental.title}</h4>
+                        <p class='card-text'>${rental.dailyRate} per Night &#183; Free Cancelation</p>
+                    </div>
                 </div>
-            </div>
+            </Link>
         </div>
     )
 }
