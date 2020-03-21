@@ -4,9 +4,6 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
 class RentalList extends React.Component {
-    constructor(){
-        super();
-    }
 
     mapAndRender(){
         return this.props.rentals.map((rental, index) => {
@@ -26,8 +23,8 @@ class RentalList extends React.Component {
     render() {
         return (
             <section id='rentalListing'>
-            <h1 class='page-title'>Home is where you want it</h1>
-                <div class='row'>
+            <h1 className='page-title'>Home is where you want it</h1>
+                <div className='row'>
                     {this.mapAndRender()}
                 </div>
             </section>
