@@ -1,6 +1,7 @@
 import React from 'react'
 import { RentalCard } from './RentalCard'
 import { connect } from 'react-redux';
+import * as actions from '../../actions';
 
 class RentalList extends React.Component {
     constructor(){
@@ -17,6 +18,11 @@ class RentalList extends React.Component {
             )
         })
     }
+
+    componentWillMount() {
+        this.props.dispatch(actions.fetchRentals());
+    }
+
     render() {
         return (
             <section id='rentalListing'>
@@ -31,7 +37,7 @@ class RentalList extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        rentals: state.rentals
+        rentals: state.rentals.data
     }
 }
 
