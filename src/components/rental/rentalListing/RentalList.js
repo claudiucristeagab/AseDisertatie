@@ -7,7 +7,6 @@ export class RentalList extends React.Component {
             return (
                 <RentalCard 
                     key={index}
-                    column='col-md-3 col-xs-6'     
                     rental={rental}
                 />
             )

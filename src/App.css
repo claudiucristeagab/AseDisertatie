@@ -51,6 +51,46 @@
         color: #7e7e7e;
         margin-bottom: 0; }
 
+#rentalDetail .upper-section {
+  margin-bottom: 30px; }
+  #rentalDetail .upper-section img {
+    width: 100%; }
+
+#rentalDetail .details-section {
+  color: #484848; }
+  #rentalDetail .details-section .rental-type {
+    font-size: 14px;
+    font-weight: 300;
+    text-transform: uppercase;
+    margin: 0; }
+  #rentalDetail .details-section .rental-title {
+    margin-bottom: 5px;
+    font-size: 32px;
+    font-weight: 700; }
+  #rentalDetail .details-section .rental-city {
+    font-size: 14px;
+    font-weight: 300;
+    margin-bottom: 20px; }
+  #rentalDetail .details-section .rental-room-info {
+    margin-bottom: 20px;
+    font-weight: 300;
+    font-size: 16px; }
+    #rentalDetail .details-section .rental-room-info span {
+      margin-right: 10px; }
+    #rentalDetail .details-section .rental-room-info i {
+      margin-right: 2px; }
+  #rentalDetail .details-section .rental-description {
+    font-weight: 300;
+    margin-bottom: 30px; }
+  #rentalDetail .details-section .rental-assets .title {
+    margin-bottom: 10px;
+    font-weight: 700;
+    font-size: 22px; }
+  #rentalDetail .details-section .rental-assets span {
+    display: block;
+    margin-bottom: 15px;
+    font-weight: 300; }
+
 .page-title {
   font-size: 30px;
   font-weight: 700;
