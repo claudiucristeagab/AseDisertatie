@@ -7,7 +7,7 @@ import { init } from 'reducers';
 
 import { Header } from 'shared/Header';
 import RentalDetail from 'components/rental/rentalDetail/RentalDetail';
-import RentalList from 'components/rental/rentalListing/RentalList';
+import RentalListing from 'components/rental/rentalListing/RentalListing';
 import 'App.css';
 
 class App extends Component {
@@ -19,7 +19,7 @@ class App extends Component {
             <Header/>
             <div className='container'>
               <Route exact path="/" render={() => { return <Redirect to='/rentals'/> }}/>
-              <Route exact path="/rentals" component={RentalList}/>
+              <Route exact path="/rentals" component={RentalListing}/>
               <Route exact path="/rentals/:id" component={RentalDetail}/>
             </div>
           </div>
