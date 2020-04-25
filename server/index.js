@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('./config/config.development');
 const MockDb = require('./mockDb');
@@ -17,6 +18,7 @@ mongoose.connect(
 });
 
 const app = express();
+app.use(cors());
 
 app.use('/api/rentals/', rentalRoutes);
 
