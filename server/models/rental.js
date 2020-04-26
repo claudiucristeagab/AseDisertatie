@@ -11,6 +11,7 @@ const rentalSchema = new Schema({
     shared: Boolean,
     description: { type: String, required: true },
     dailyRate: Number,
+    user: { type: Schema.Types.ObjectId, ref: 'User' },
     createdAt: { type: Date, default: Date.now }
 });
 
