@@ -2,12 +2,14 @@ const User = require('../models/user');
 const mongooseHelpers = require('../helpers/mongoose');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config.development');
+const LocalizationResources = require('../localization/resources')
 
 exports.auth = (req, res) => {
     const {email, password} = req.body;
 
     if(!password || !email){
-        return res.status(422).send({errors: [{title: 'User registration error', detail: 'Email or password missing.'}]});
+        return res.status(422).send({errors: [{title: LocalizationResources.Controllers_User_RegistrationError_Title, 
+            detail: LocalizationResources.Controllers_User_RegistrationError_Detail}]});
     }
 
     User.findOne({email: email}, (err, user) =>{
@@ -16,7 +18,8 @@ exports.auth = (req, res) => {
         }
 
         if(!user) {
-            return res.status(422).send({errors: [{title: 'Invalid user', detail: 'User does not exist.'}]});
+            return res.status(422).send({errors: [{title: LocalizationResources.Controllers_User_Auth_InexistingUser_Title, 
+                detail: LocalizationResources.Controllers_User_Auth_InexistingUser_Detail}]});
         }
 
         if (user.isSamePassword(password)){
@@ -27,7 +30,8 @@ exports.auth = (req, res) => {
             return res.json(token);
         }
         else {
-            return res.status(422).send({errors: [{title: 'Invalid data', detail: 'Email/password is incorrect.'}]});
+            return res.status(422).send({errors: [{title: LocalizationResources.Controllers_User_Auth_InvalidData_Title, 
+                detail: LocalizationResources.Controllers_User_Auth_InvalidData_Detail}]});
         }
     })
 }
@@ -41,11 +45,13 @@ exports.register = (req, res) => {
     } = req.body;
 
     if(!password || !email){
-        return res.status(422).send({errors: [{title: 'User registration error', detail: 'Email or password missing.'}]});
+        return res.status(422).send({errors: [{title: LocalizationResources.Controllers_User_RegistrationError_Title, 
+            detail: LocalizationResources.Controllers_User_RegistrationError_Detail}]});
     }
 
     if(password !== passwordConfirmation){
-        return res.status(422).send({errors: [{title: 'User registration error', detail: 'Passwords do not match.'}]});
+        return res.status(422).send({errors: [{title: LocalizationResources.Controllers_User_RegistrationError_UnmatchedPasswords_Title, 
+            detail: LocalizationResources.Controllers_User_RegistrationError_UnmatchedPasswords_Detail}]});
     }
 
     User.findOne({email: email}, (err, existingUser) =>{
@@ -54,7 +60,8 @@ exports.register = (req, res) => {
         }
 
         if(existingUser) {
-            return res.status(422).send({errors: [{title: 'User registration error', detail: 'User with this email already exists.'}]});
+            return res.status(422).send({errors: [{title: LocalizationResources.Controllers_User_RegistrationError_UserWithEmailExists_Title, 
+                detail: LocalizationResources.Controllers_User_RegistrationError_UserWithEmailExists_Detail}]});
         }
 
         const user = new User({
@@ -101,5 +108,6 @@ const parseToken = (token) => {
 }
 
 const unauthorized = (res) => {
-    return res.status(422).send({errors: [{title: 'Unauthorized', detail: 'Login required.'}]});
+    return res.status(422).send({errors: [{title: LocalizationResources.Controllers_User_Unauthorized_Title, 
+        detail: LocalizationResources.Controllers_User_Unauthorized_Detail}]});
 }
