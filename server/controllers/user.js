@@ -1,7 +1,7 @@
-const User = require('../models/user');
-const mongooseHelpers = require('../helpers/mongoose');
 const jwt = require('jsonwebtoken');
-const config = require('../config/config.development');
+const mongooseHelper = require('../helpers/mongoose');
+const UserModel = require('../models/user');
+const Config = require('../config/config.development');
 const LocalizationResources = require('../localization/resources')
 
 exports.auth = (req, res) => {
@@ -12,9 +12,9 @@ exports.auth = (req, res) => {
             detail: LocalizationResources.Controllers_User_RegistrationError_Detail}]});
     }
 
-    User.findOne({email: email}, (err, user) =>{
+    UserModel.findOne({email: email}, (err, user) =>{
         if (err){
-            return res.status(422).send({errors: mongooseHelpers.normalizeErrors(err.errors)});
+            return res.status(422).send({errors: mongooseHelper.normalizeErrors(err.errors)});
         }
 
         if(!user) {
@@ -26,7 +26,7 @@ exports.auth = (req, res) => {
             const token = jwt.sign({
                 userId: user.id,
                 username: user.username,
-            }, config.SECRET, { expiresIn: '1h' });
+            }, Config.SECRET, { expiresIn: '1h' });
             return res.json(token);
         }
         else {
@@ -54,9 +54,9 @@ exports.register = (req, res) => {
             detail: LocalizationResources.Controllers_User_RegistrationError_UnmatchedPasswords_Detail}]});
     }
 
-    User.findOne({email: email}, (err, existingUser) =>{
+    UserModel.findOne({email: email}, (err, existingUser) =>{
         if (err){
-            return res.status(422).send({errors: mongooseHelpers.normalizeErrors(err.errors)});
+            return res.status(422).send({errors: mongooseHelper.normalizeErrors(err.errors)});
         }
 
         if(existingUser) {
@@ -64,7 +64,7 @@ exports.register = (req, res) => {
                 detail: LocalizationResources.Controllers_User_RegistrationError_UserWithEmailExists_Detail}]});
         }
 
-        const user = new User({
+        const user = new UserModel({
             username,
             email,
             password
@@ -72,7 +72,7 @@ exports.register = (req, res) => {
 
         user.save((err) => {
             if (err){
-                return res.status(422).send({errors: mongooseHelpers.normalizeErrors(err.errors)});
+                return res.status(422).send({errors: mongooseHelper.normalizeErrors(err.errors)});
             }
             return res.json({'registered': true});
         });
@@ -87,9 +87,9 @@ exports.authMiddleware = (req, res, next) => {
     }
     else {
         const user = parseToken(token);
-        User.findById(user.userId, (err, user) => {
+        UserModel.findById(user.userId, (err, user) => {
             if (err){
-                return res.status(422).send({errors: mongooseHelpers.normalizeErrors(err.errors)});
+                return res.status(422).send({errors: mongooseHelper.normalizeErrors(err.errors)});
             }
 
             if (user){
@@ -104,7 +104,7 @@ exports.authMiddleware = (req, res, next) => {
 }
 
 const parseToken = (token) => {
-    return jwt.verify(token.split(' ')[1], config.SECRET);
+    return jwt.verify(token.split(' ')[1], Config.SECRET);
 }
 
 const unauthorized = (res) => {
