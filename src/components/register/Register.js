@@ -10,7 +10,7 @@ export default class Register extends React.Component {
         super();
         this.state = {
             errors: [],
-            redirect: false
+            redirectToLogin: false
         };
         this.registerUser = this.registerUser.bind(this);
     }
@@ -20,7 +20,7 @@ export default class Register extends React.Component {
             .then(
                 (registered) => {
                     this.setState({
-                        redirect: true
+                        redirectToLogin: true
                     });
                 },
                 (errors) => {
@@ -32,9 +32,10 @@ export default class Register extends React.Component {
     }
 
     render(){
-        const {errors, redirect} = this.state;
+        const {errors, redirectToLogin} = this.state;
 
-        if(redirect){
+        // Redirect the user to the login screen after a successful registration
+        if(redirectToLogin){
             return <Redirect to={{pathname: '/login', state: {successRegister: true}}}/>
         }
 
@@ -48,7 +49,7 @@ export default class Register extends React.Component {
                     </div>
                     <div className='col-md-6 ml-auto'>
                         <div className='image-container'>
-                        <h2 className='catchphrase'>As our member you have access to most awesome places in the world.</h2>
+                        <h2 className='catchphrase'>Rent my stuff up.</h2>
                         <img src='' alt=""/>
                         </div>
                     </div>
