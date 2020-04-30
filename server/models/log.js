@@ -8,4 +8,4 @@ const logSchema = new Schema({
     createdAt: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('Log', logSchema);
+module.exports = mongoose.model('_Log', logSchema);

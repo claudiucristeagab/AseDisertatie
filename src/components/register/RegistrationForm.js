@@ -2,9 +2,10 @@ import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { InputField } from 'components/shared/form/InputField'
 import { ResultError } from 'components/shared/form/ResultError'
+import * as validators from 'validators/validators';
 
 const RegistrationForm = (props) => {
-  const { handleSubmit, pristine, reset, submitting, submitCallback, valid, errors } = props;
+  const { handleSubmit, pristine, submitting, submitCallback, valid, errors } = props;
   return (
     <form onSubmit={handleSubmit(submitCallback)}>
         <Field
@@ -13,6 +14,7 @@ const RegistrationForm = (props) => {
             type="text"
             label="Username"
             className="form-control"
+            validate={[validators.required, validators.minLength(4), validators.maxLength(32)]}
             component={InputField}
         />
         <Field
@@ -21,6 +23,7 @@ const RegistrationForm = (props) => {
             type="email"
             label="Email"
             className="form-control"
+            validate={[validators.required, validators.email]}
             component={InputField}
         />
         <Field
@@ -29,6 +32,7 @@ const RegistrationForm = (props) => {
             type="password"
             label="Password"
             className="form-control"
+            validate={[validators.required, validators.minLength(8), validators.maxLength(128)]}
             component={InputField}
         />
         <Field
@@ -37,13 +41,13 @@ const RegistrationForm = (props) => {
             type="password"
             label="Confirm Password"
             className="form-control"
+            validate={[validators.required, validators.minLength(8), validators.maxLength(128)]}
             component={InputField}
         />
         <div>
         <button className='btn btn-custom btn-form' type="submit" disabled={!valid || pristine || submitting}>
             Register
         </button>
-        <ResultError errors={errors}/>
         </div>
     </form>
   );
@@ -51,28 +55,15 @@ const RegistrationForm = (props) => {
 
 const validate = (values) => {
     const errors = {}
-    if (!values.username) {
-        errors.username = 'Username required';
-    } else if (values.username.length < 4) {
-        errors.username = 'Username needs to be at least 4 characters';
-    }
-
-    if (!values.email) {
-        errors.email = 'Email required';
-    }
-
-    if (!values.passwordConfirmation) {
-        errors.passwordConfirmation = 'Please confirm your password';
-    }
 
     if (values.password !== values.passwordConfirmation) {
-        errors.password = 'Passwords must match';
+        errors.passwordConfirmation = 'Passwords must match';
     }
 
     return errors;
 }
 
 export default reduxForm({
-  form: 'simple',
+  form: 'registrationForm',
   validate: validate
-})(RegistrationForm)
+})(RegistrationForm)    

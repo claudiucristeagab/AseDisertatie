@@ -1,5 +1,14 @@
 import axios from 'axios';
-import {FETCH_RENTALS_INIT, FETCH_RENTALS_SUCCESS, FETCH_RENTAL_BY_ID_SUCCESS, FETCH_RENTAL_BY_ID_INIT} from './types';
+import {
+  FETCH_RENTALS_INIT, 
+  FETCH_RENTALS_SUCCESS, 
+  FETCH_RENTAL_BY_ID_SUCCESS, 
+  FETCH_RENTAL_BY_ID_INIT,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  LOGOUT
+} from './types';
+import authService from 'services/authService';
 
 const rentalsPath = process.env.REACT_APP_API_URI + 'rentals';
 const usersPath = process.env.REACT_APP_API_URI + 'users';
@@ -55,7 +64,7 @@ const fetchRentalsInit = (rentals) => {
 }
 
 // User
- export const register = (userData) => {
+export const register = (userData) => {
   return axios.post(`${usersPath}/register`, {...userData})
     .then(
       (res) => {
@@ -65,4 +74,46 @@ const fetchRentalsInit = (rentals) => {
         return Promise.reject(err.response.data.errors);
       }
     )
- }
+}
+
+export const loginSuccess = () => {
+  return {
+    type: LOGIN_SUCCESS
+  }
+}
+
+export const loginFailure = (errors) => {
+  return {
+    type: LOGIN_FAILURE,
+    errors
+  }
+}
+
+export const checkAuthState = () => {
+  return dispatch => {
+    if (authService.isAuthenticated()){
+      dispatch(loginSuccess());
+    }
+  }
+}
+
+export const login = (userData) => {
+  return dispatch => {
+    axios.post(`${usersPath}/auth`, {...userData})
+    .then(res => res.data)
+    .then(token => {
+      authService.saveToken(token);
+      dispatch(loginSuccess());
+    })
+    .catch((error)=>{
+      dispatch(loginFailure(error.response.data.errors))
+    })
+  }
+}
+
+export const logout = () => {
+  authService.invalidateUser();
+  return {
+    type: LOGOUT
+  };
+}

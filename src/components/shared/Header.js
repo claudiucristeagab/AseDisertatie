@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export function Header(){
+export function Header(props){
     return (
         <nav className='navbar navbar-dark navbar-expand-lg'>
             <div className='container'>
@@ -15,8 +15,9 @@ export function Header(){
                 </button>
                 <div className='collapse navbar-collapse' id='navbarNavAltMarkup'>
                     <div className='navbar-nav ml-auto'>
-                        <a className='nav-item nav-link active' href='/login'>Login <span className='sr-only'>(current)</span></a>
-                        <a className='nav-item nav-link' href='/register'>Register</a>
+                        <Link className='nav-item nav-link active' to='/login'>Login <span className='sr-only'>(current)</span></Link>
+                        <Link className='nav-item nav-link' to='/register'>Register</Link>
+                        <p className='nav-item nav-link' onClick={props.logoutCallback}>Logout</p>
                     </div>
                 </div>
             </div>

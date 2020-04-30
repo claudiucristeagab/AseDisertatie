@@ -77,7 +77,6 @@ function withGeocode(WrappedComponent){
 
         getGeocodedLocation(){
             const location = this.props.location;
-            debugger;
             const cachedCoordinates = this.cacheService.isValueCached(location);
             if (cachedCoordinates){
                 this.updateCoordinates(cachedCoordinates);
@@ -88,7 +87,6 @@ function withGeocode(WrappedComponent){
                         this.updateCoordinates(coordinates);
                     },
                     (error)=>{
-                        console.log(error);
                         this.setState({
                             isError: true,
                             isLocationLoaded: true
