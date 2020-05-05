@@ -24,6 +24,37 @@
   .navbar .nav-item {
     color: #ededed; }
 
+.custom-form {
+  color: #484848; }
+  .custom-form h1 {
+    font-weight: 700;
+    margin-bottom: 30px; }
+  .custom-form .image-container {
+    position: relative; }
+    .custom-form .image-container img {
+      width: 100%;
+      border-radius: 5px; }
+  .custom-form label {
+    font-size: 12px; }
+  .custom-form .form-text {
+    font-size: 13px; }
+  .custom-form .catchphrase {
+    text-align: center;
+    font-size: 42px;
+    position: absolute;
+    color: #f1f1f1;
+    padding: 40px;
+    background-color: rgba(0, 0, 0, 0.5);
+    margin-top: 50px;
+    letter-spacing: 1px; }
+  .custom-form .btn-form {
+    margin-top: 15px; }
+
+.custom-res-errors {
+  margin: 10px 0; }
+  .custom-res-errors p {
+    margin-bottom: 5px; }
+
 #rentalListing {
   /* SINGLE CARD STYLES*/ }
   #rentalListing .title {
@@ -91,6 +122,9 @@
     margin-bottom: 15px;
     font-weight: 300; }
 
+.clickable:hover {
+  cursor: pointer; }
+
 .page-title {
   font-size: 30px;
   font-weight: 700;
@@ -104,3 +138,13 @@
 
 .condo {
   color: #d68000; }
+
+.btn-custom {
+  background-color: #61dafb;
+  border-color: #61dafb;
+  color: white;
+  padding: 15px 30px;
+  font-size: 20px; }
+  .btn-custom:hover, .btn-custom:focus, .btn-customactive {
+    border-color: #61dafb !important;
+    background-color: #61dafb !important; }

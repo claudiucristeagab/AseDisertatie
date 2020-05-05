@@ -5,8 +5,10 @@ class MockDb {
     constructor(){
         this.rentals = [{
             title: "Nice view on ocean",
+            country: "United States",
             city: "San Francisco",
             street: "Main street",
+            address: "",
             category: "condo",
             image: "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
             bedrooms: 4,
@@ -16,8 +18,10 @@ class MockDb {
             },
             {
             title: "Modern apartment in center",
+            country: "United States",
             city: "New York",
             street: "Time Square",
+            address: "",
             category: "apartment",
             image: "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
             bedrooms: 1,
@@ -27,8 +31,10 @@ class MockDb {
             },
             {
             title: "Old house in nature",
+            country: "Slovakia",
             city: "Spisska Nova Ves",
             street: "Banicka 1",
+            address: "",
             category: "house",
             image: "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
             bedrooms: 5,

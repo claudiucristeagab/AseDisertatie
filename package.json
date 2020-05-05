@@ -9,8 +9,10 @@
     "bootstrap": "^4.0.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-winston": "^4.0.3",
     "jquery": "^3.3.1",
     "jsonwebtoken": "^8.5.1",
+    "moment": "^2.24.0",
     "mongoose": "^5.9.10",
     "node-sass-chokidar": "^1.2.2",
     "npm-run-all": "^4.1.2",
@@ -22,7 +24,9 @@
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    "redux-form": "^7.3.0",
+    "redux-thunk": "^2.2.0",
+    "winston": "^3.2.1"
   },
   "scripts": {
     "build-css": "node-sass-chokidar ./src -o ./src",
