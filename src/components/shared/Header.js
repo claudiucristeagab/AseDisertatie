@@ -1,17 +1,26 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 class Header extends React.Component{
 
+    constructor(){
+        super();
+        this.handleLogout = this.handleLogout.bind(this);
+    }
+
+    handleLogout(){
+        this.props.logoutCallback();
+        this.props.history.push('/rentals');
+    }
+
     renderAuthButtons(){
-        const { logoutCallback } =  this.props;
         const { isAuth } = this.props.auth;
 
         if(isAuth) {
             return (
                 <React.Fragment>
-                    <a className='nav-item nav-link clickable' onClick={logoutCallback}>Logout</a>
+                    <a className='nav-item nav-link clickable' onClick={this.handleLogout}>Logout</a>
                 </React.Fragment>
             )
         }
@@ -54,4 +63,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(Header);
+export default withRouter(connect(mapStateToProps)(Header));

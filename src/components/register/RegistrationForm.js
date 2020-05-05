@@ -10,7 +10,6 @@ const RegistrationForm = (props) => {
     <form onSubmit={handleSubmit(submitCallback)}>
         <Field
             name="username"
-            component="input"
             type="text"
             label="Username"
             className="form-control"
@@ -19,7 +18,6 @@ const RegistrationForm = (props) => {
         />
         <Field
             name="email"
-            component="input"
             type="email"
             label="Email"
             className="form-control"
@@ -28,7 +26,6 @@ const RegistrationForm = (props) => {
         />
         <Field
             name="password"
-            component="input"
             type="password"
             label="Password"
             className="form-control"
@@ -37,7 +34,6 @@ const RegistrationForm = (props) => {
         />
         <Field
             name="passwordConfirmation"
-            component="input"
             type="password"
             label="Confirm Password"
             className="form-control"
