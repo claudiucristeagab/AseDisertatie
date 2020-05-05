@@ -21,7 +21,7 @@ class RentalDetail extends React.Component {
                             <img src={rental.image} alt=''></img>
                         </div>
                         <div className='col-md-6'>
-                            <RentalMap location={`${rental.city}, ${rental.street}`}/>
+                            <RentalMap location={`${rental.country}, ${rental.city}, ${rental.street}`}/>
                         </div>
                         </div>
                     </div>

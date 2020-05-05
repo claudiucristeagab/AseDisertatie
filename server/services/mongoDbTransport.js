@@ -15,7 +15,8 @@ module.exports = class MongoDbTransport extends Transport {
         const logObj = new LogModel({
             level: info.level,
             message: info.message,
-            meta: info.meta
+            meta: info.meta,
+            timestamp: info.timestamp
         });
         logObj.save();
 
