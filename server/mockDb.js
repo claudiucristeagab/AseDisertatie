@@ -1,5 +1,6 @@
 const Rental = require('./models/rental');
 const User = require('./models/user');
+const Booking = require('./models/booking');
 
 class MockDb {
     constructor(){
@@ -47,6 +48,11 @@ class MockDb {
             username: "testuser",
             email:"email@email.com",
             password: "password"
+        },
+        {
+            username: "testuser2",
+            email:"email2@email.com",
+            password: "password"
         }]
     }
 
@@ -58,13 +64,16 @@ class MockDb {
             user.rentals.push(newRental);
             newRental.save();
         })
-
         user.save();
+
+        const user2 = new User(this.users[1]);
+        user2.save();
     }
 
     async cleanDb(){
         await Rental.remove();
         await User.remove();
+        await Booking.remove();
     }
 
     async seedDb(){

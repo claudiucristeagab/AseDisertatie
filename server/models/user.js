@@ -25,6 +25,7 @@ const userSchema = new Schema({
         required: 'Password is required'
     },
     rentals: [{type: Schema.Types.ObjectId, ref: 'Rental'}],
+    bookings: [{type: Schema.Types.ObjectId, ref: 'Booking'}],
     createdAt: { type: Date, default: Date.now }
 });
 
