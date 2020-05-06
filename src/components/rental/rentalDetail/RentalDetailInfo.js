@@ -6,9 +6,10 @@ export function RentalDetailInfo(props){
     const rental = props.rental;
     return (
         <div className='rental'>
-            <h2 className={`rental-type ${rental.category}`}>{rentalType(rental.shared)} {rental.category}</h2>
+            <h2 className={`rental-type ${rental.category}`}>{rentalType(rental.shared)} {rental.category}</h2> 
             <h1 className='rental-title'>{rental.title}</h1>
-            <h2 className='rental-city'>{rental.country}, {rental.city}, {rental.address}</h2>
+            <h2 className='rental-city'>Posted by {rental.user.username} ({rental.user.email})</h2>
+            <h2 className='rental-city'>{rental.country}, {rental.city}, {rental.street}, {rental.address}</h2>
             <div className='rental-room-info'>
                 <span><i className='fa fa-building'></i>{rental.bedrooms} bedrooms</span>
                 <span><i className='fa fa-user'></i> {rental.bedrooms + 4} guests</span>

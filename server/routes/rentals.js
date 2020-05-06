@@ -18,7 +18,7 @@ router.get('', function(req,res){
 router.get('/:id', function(req,res){
     const id = req.params.id;
     RentalModel.findById(id)
-        .populate('user','username -_id')
+        .populate('user','username email -_id')
         .populate('bookings', 'startAt endAt -_id')
         .exec((err, foundRental) => {
             if (err){
