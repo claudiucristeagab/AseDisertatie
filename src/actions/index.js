@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
   FETCH_RENTALS_INIT, 
   FETCH_RENTALS_SUCCESS, 
@@ -9,17 +8,19 @@ import {
   LOGOUT
 } from './types';
 import authService from 'services/authService';
+import axiosService from 'services/axiosService';
 
 const rentalsPath = process.env.REACT_APP_API_URI + 'rentals';
 const usersPath = process.env.REACT_APP_API_URI + 'users';
 const bookingsPath = process.env.REACT_APP_API_URI + 'bookings';
 
-// Rentals
+const axiosInstance = axiosService.getInstance();
 
+// Rentals
 export const fetchRentalById = (rentalId) => {
   return (dispatch) => {
     dispatch(fetchRentalByIdInit());
-    axios.get(`${rentalsPath}/${rentalId}`)
+    axiosInstance.get(`${rentalsPath}/${rentalId}`)
     .then(res => res.data )
     .then((rental) => {
       dispatch(fetchRentalByIdSuccess(rental));
@@ -43,7 +44,7 @@ const fetchRentalByIdSuccess = (rental) => {
 export const fetchRentals = () => {
   return (dispatch) => {
     dispatch(fetchRentalsInit());
-    axios.get(rentalsPath)
+    axiosInstance.get(rentalsPath)
     .then(res => res.data )
     .then((rentals) => {
       dispatch(fetchRentalsSuccess(rentals))
@@ -66,7 +67,7 @@ const fetchRentalsInit = (rentals) => {
 
 // User
 export const register = (userData) => {
-  return axios.post(`${usersPath}/register`, {...userData})
+  return axiosInstance.post(`${usersPath}/register`, {...userData})
     .then(
       (res) => {
         return res.data;
@@ -100,7 +101,7 @@ export const checkAuthState = () => {
 
 export const login = (userData) => {
   return dispatch => {
-    axios.post(`${usersPath}/auth`, {...userData})
+    axiosInstance.post(`${usersPath}/auth`, {...userData})
     .then(res => res.data)
     .then(token => {
       authService.saveToken(token);
