@@ -12,6 +12,7 @@ import authService from 'services/authService';
 
 const rentalsPath = process.env.REACT_APP_API_URI + 'rentals';
 const usersPath = process.env.REACT_APP_API_URI + 'users';
+const bookingsPath = process.env.REACT_APP_API_URI + 'bookings';
 
 // Rentals
 
@@ -116,4 +117,12 @@ export const logout = () => {
   return {
     type: LOGOUT
   };
+}
+
+// Bookings
+
+export const createBooking = (booking) => {
+  return axiosInstance.post(bookingsPath, booking)
+    .then(res => res.data)
+    .catch(({response}) => response.data.errors)
 }
