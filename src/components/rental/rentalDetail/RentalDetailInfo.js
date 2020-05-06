@@ -12,8 +12,8 @@ export function RentalDetailInfo(props){
             <h2 className='rental-city'>{rental.country}, {rental.city}, {rental.street}, {rental.address}</h2>
             <div className='rental-room-info'>
                 <span><i className='fa fa-building'></i>{rental.bedrooms} bedrooms</span>
-                <span><i className='fa fa-user'></i> {rental.bedrooms + 4} guests</span>
-                <span><i className='fa fa-bed'></i> {rental.bedrooms + 2} beds</span>
+                <span><i className='fa fa-user'></i> {rental.guests} guests</span>
+                <span><i className='fa fa-bed'></i> {rental.beds} beds</span>
             </div>
             <p className='rental-description'>
                 {rental.description}

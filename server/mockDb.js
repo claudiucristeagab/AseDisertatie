@@ -13,6 +13,8 @@ class MockDb {
             category: "condo",
             image: "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
             bedrooms: 4,
+            beds: 4,
+            guests: 8,
             shared: true,
             description: "Very nice apartment in center of the city.",
             dailyRate: 43
@@ -26,6 +28,8 @@ class MockDb {
             category: "apartment",
             image: "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
             bedrooms: 1,
+            beds: 1,
+            guests: 2,
             shared: false,
             description: "Very nice apartment in center of the city.",
             dailyRate: 11
@@ -39,6 +43,8 @@ class MockDb {
             category: "house",
             image: "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
             bedrooms: 5,
+            beds: 5,
+            guests: 8,
             shared: true,
             description: "Very nice apartment in center of the city.",
             dailyRate: 23

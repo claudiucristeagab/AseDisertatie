@@ -10,6 +10,8 @@ const rentalSchema = new Schema({
     category: { type: String, required: true, lowercase: true },
     image: { type: String, required: true },
     bedrooms: Number,
+    beds: Number,
+    guests: Number,
     shared: Boolean,
     description: { type: String, required: true },
     dailyRate: Number,
