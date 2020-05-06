@@ -18,7 +18,7 @@ class MockDb {
             dailyRate: 43
             },
             {
-            title: "Modern apartment in center",
+            title: "Apartment Greenfield",
             country: "Romania",
             city: "Bucharest",
             street: "Drumul Padurea Mogosoaia 38",
@@ -45,29 +45,29 @@ class MockDb {
         }],
 
         this.users = [{
-            username: "testuser",
-            email:"email@email.com",
+            username: "owner",
+            email:"owner@email.com",
             password: "password"
         },
         {
-            username: "testuser2",
-            email:"email2@email.com",
+            username: "user",
+            email:"user@email.com",
             password: "password"
         }]
     }
 
     pushDataToDb(){
-        const user = new User(this.users[0]);
+        const owner = new User(this.users[0]);
         this.rentals.forEach((rental) => {
             const newRental = new Rental(rental);
-            newRental.user = user;
-            user.rentals.push(newRental);
+            newRental.user = owner;
+            owner.rentals.push(newRental);
             newRental.save();
         })
-        user.save();
+        owner.save();
 
-        const user2 = new User(this.users[1]);
-        user2.save();
+        const user = new User(this.users[1]);
+        user.save();
     }
 
     async cleanDb(){

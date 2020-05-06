@@ -4,7 +4,8 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-daterangepicker/daterangepicker.css'
+import 'bootstrap-daterangepicker/daterangepicker.css';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
