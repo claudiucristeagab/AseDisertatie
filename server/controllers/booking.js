@@ -30,6 +30,10 @@ exports.createBooking = (req,res) => {
             return res.status(422).send({errors: [{title: 'Invalid booking!', 
                 detail: 'Chosen dates are already taken.'}]});
         }
+        if (booking.guests === 0 ){
+            return res.status(422).send({errors: [{title: 'Invalid booking!', 
+                detail: 'You must book at least one guest.'}]});
+        }
         booking.user = user;
         booking.rental = foundRental;
         foundRental.bookings.push(booking);
