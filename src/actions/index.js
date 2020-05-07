@@ -1,8 +1,8 @@
 import {
-  FETCH_RENTALS_INIT, 
+  FETCH_RENTALS_INIT,
   FETCH_RENTALS_SUCCESS,
-  FETCH_RENTALS_FAILURE, 
-  FETCH_RENTAL_BY_ID_SUCCESS, 
+  FETCH_RENTALS_FAILURE,
+  FETCH_RENTAL_BY_ID_SUCCESS,
   FETCH_RENTAL_BY_ID_INIT,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
@@ -22,10 +22,10 @@ export const fetchRentalById = (rentalId) => {
   return (dispatch) => {
     dispatch(fetchRentalByIdInit());
     axiosInstance.get(`${rentalsPath}/${rentalId}`)
-    .then(res => res.data )
-    .then((rental) => {
-      dispatch(fetchRentalByIdSuccess(rental));
-    });
+      .then(res => res.data)
+      .then((rental) => {
+        dispatch(fetchRentalByIdSuccess(rental));
+      });
   }
 }
 
@@ -51,11 +51,11 @@ export const fetchRentals = (searchQuery) => {
           search: searchQuery
         }
       })
-    .then(res => res.data )
-    .then((rentals) => {
-      dispatch(fetchRentalsSuccess(rentals))
-    })
-    .catch(({response}) => dispatch(fetchRentalsFailure(response.data.errors)));
+      .then(res => res.data)
+      .then((rentals) => {
+        dispatch(fetchRentalsSuccess(rentals))
+      })
+      .catch(({ response }) => dispatch(fetchRentalsFailure(response.data.errors)));
   }
 }
 
@@ -79,9 +79,14 @@ const fetchRentalsInit = (rentals) => {
   }
 }
 
+export const createRental = (rental) => {
+  return axiosInstance.post(rentalsPath, rental)
+    .then(res => res.data, err => Promise.reject(err.response.data.errors));
+}
+
 // User
 export const register = (userData) => {
-  return axiosInstance.post(`${usersPath}/register`, {...userData})
+  return axiosInstance.post(`${usersPath}/register`, { ...userData })
     .then(
       (res) => {
         return res.data;
@@ -107,7 +112,7 @@ export const loginFailure = (errors) => {
 
 export const checkAuthState = () => {
   return dispatch => {
-    if (authService.isAuthenticated()){
+    if (authService.isAuthenticated()) {
       dispatch(loginSuccess());
     }
   }
@@ -115,15 +120,15 @@ export const checkAuthState = () => {
 
 export const login = (userData) => {
   return dispatch => {
-    axiosInstance.post(`${usersPath}/auth`, {...userData})
-    .then(res => res.data)
-    .then(token => {
-      authService.saveToken(token);
-      dispatch(loginSuccess());
-    })
-    .catch((error)=>{
-      dispatch(loginFailure(error.response.data.errors))
-    })
+    axiosInstance.post(`${usersPath}/auth`, { ...userData })
+      .then(res => res.data)
+      .then(token => {
+        authService.saveToken(token);
+        dispatch(loginSuccess());
+      })
+      .catch((error) => {
+        dispatch(loginFailure(error.response.data.errors))
+      })
   }
 }
 
@@ -139,5 +144,5 @@ export const logout = () => {
 export const createBooking = (booking) => {
   return axiosInstance.post(bookingsPath, booking)
     .then(res => res.data)
-    .catch(({response}) => Promise.reject(response.data.errors))
+    .catch(({ response }) => Promise.reject(response.data.errors))
 }

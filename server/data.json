@@ -46,15 +46,15 @@
             "dailyRate": 23
         }
     ],
-    "users" : [
+    "users": [
         {
-            "username": "owner",
-            "email":"owner@email.com",
+            "username": "Ion Tiriac",
+            "email": "owner@email.com",
             "password": "password"
         },
         {
-            "username": "user",
-            "email":"user@email.com",
+            "username": "Paul Popescu",
+            "email": "user@email.com",
             "password": "password"
         }
     ]
