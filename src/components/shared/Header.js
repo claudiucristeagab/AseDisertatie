@@ -3,22 +3,22 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import RentalSearchInput from 'components/rental/RentalSearchInput';
 
-class Header extends React.Component{
+class Header extends React.Component {
 
-    constructor(){
+    constructor() {
         super();
         this.handleLogout = this.handleLogout.bind(this);
     }
 
-    handleLogout(){
+    handleLogout() {
         this.props.logoutCallback();
         this.props.history.push('/rentals');
     }
 
-    renderAuthButtons(){
+    renderAuthButtons() {
         const { isAuth } = this.props.auth;
 
-        if(isAuth) {
+        if (isAuth) {
             return (
                 <React.Fragment>
                     <a className='nav-item nav-link clickable' onClick={this.handleLogout}>Logout</a>
@@ -35,18 +35,40 @@ class Header extends React.Component{
         }
     }
 
-    render(){
+    renderOwnerSection() {
+        const { isAuth, username } = this.props.auth;
+        if (isAuth) {
+            return (
+                <React.Fragment>
+                    <a className='nav-item nav-link'>{username}</a>
+                    <div className="nav-item dropdown">
+                        <a className="nav-link nav-item dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Owner Section
+                        </a>
+                        <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <Link className="dropdown-item" to="/rentals/create">Create Rental</Link>
+                            <Link className="dropdown-item" to="#">Manage Rentals</Link>
+                            <Link className="dropdown-item" to="#">Manage Bookings</Link>
+                        </div>
+                    </div>
+                </React.Fragment>
+            )
+        }
+    }
+
+    render() {
         return (
             <nav className='navbar navbar-dark navbar-expand-lg'>
                 <div className='container'>
                     <Link className='navbar-brand' to='/rentals'>Bookings</Link>
-                    <RentalSearchInput/>
+                    <RentalSearchInput />
                     <button className='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarNavAltMarkup' aria-controls='navbarNavAltMarkup' aria-expanded='false' aria-label='Toggle navigation'>
                         <span className='navbar-toggler-icon'></span>
                     </button>
                     <div className='collapse navbar-collapse' id='navbarNavAltMarkup'>
                         <div className='navbar-nav ml-auto'>
-                            {   this.renderAuthButtons()}
+                            {this.renderOwnerSection()}
+                            {this.renderAuthButtons()}
                         </div>
                     </div>
                 </div>

@@ -21,12 +21,19 @@ class AuthService {
         if(token && this.tokenIsValid(token)){
             return true;
         }
-
-        return false;
+        else {
+            this.invalidateUser();
+            return false;
+        }
+        
     }
 
     invalidateUser = () => {
         localStorage.removeItem(this.tokenKey);
+    }
+
+    getUsername = () => {
+        return jwt.decode(this.getToken()).username;
     }
 }
 

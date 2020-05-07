@@ -35,7 +35,6 @@ class RentalSearchListing extends React.Component {
     render() {
         const { searchedQuery } = this.state;
         const { rentals, errors } = this.props;
-        console.log(errors);
         return (
             <section id='rentalListing'>
                 {

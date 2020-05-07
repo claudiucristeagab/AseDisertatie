@@ -23,6 +23,10 @@
       box-shadow: none; }
   .navbar .nav-item {
     color: #ededed; }
+  .navbar .dropdown-menu .dropdown-item {
+    font-size: 13px; }
+    .navbar .dropdown-menu .dropdown-item:active {
+      background-color: #61dafb; }
 
 .custom-form {
   color: #484848; }

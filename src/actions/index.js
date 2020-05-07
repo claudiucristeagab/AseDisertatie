@@ -98,8 +98,10 @@ export const register = (userData) => {
 }
 
 export const loginSuccess = () => {
+  const username = authService.getUsername();
   return {
-    type: LOGIN_SUCCESS
+    type: LOGIN_SUCCESS,
+    username
   }
 }
 
