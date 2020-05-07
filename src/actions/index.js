@@ -1,6 +1,7 @@
 import {
   FETCH_RENTALS_INIT, 
-  FETCH_RENTALS_SUCCESS, 
+  FETCH_RENTALS_SUCCESS,
+  FETCH_RENTALS_FAILURE, 
   FETCH_RENTAL_BY_ID_SUCCESS, 
   FETCH_RENTAL_BY_ID_INIT,
   LOGIN_SUCCESS,
@@ -41,14 +42,20 @@ const fetchRentalByIdSuccess = (rental) => {
   }
 }
 
-export const fetchRentals = () => {
+export const fetchRentals = (searchQuery) => {
   return (dispatch) => {
     dispatch(fetchRentalsInit());
-    axiosInstance.get(rentalsPath)
+    axiosInstance.get(rentalsPath,
+      {
+        params: {
+          search: searchQuery
+        }
+      })
     .then(res => res.data )
     .then((rentals) => {
       dispatch(fetchRentalsSuccess(rentals))
-    });
+    })
+    .catch(({response}) => dispatch(fetchRentalsFailure(response.data.errors)));
   }
 }
 
@@ -56,6 +63,13 @@ const fetchRentalsSuccess = (rentals) => {
   return {
     type: FETCH_RENTALS_SUCCESS,
     rentals
+  }
+}
+
+const fetchRentalsFailure = (errors) => {
+  return {
+    type: FETCH_RENTALS_FAILURE,
+    errors
   }
 }
 

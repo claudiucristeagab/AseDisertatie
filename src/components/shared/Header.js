@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import RentalSearchInput from 'components/rental/RentalSearchInput';
 
 class Header extends React.Component{
 
@@ -39,10 +40,7 @@ class Header extends React.Component{
             <nav className='navbar navbar-dark navbar-expand-lg'>
                 <div className='container'>
                     <Link className='navbar-brand' to='/rentals'>Bookings</Link>
-                    <form className='form-inline my-2 my-lg-0'>
-                        <input className='form-control mr-sm-2 bwm-search' type='search' placeholder='Try "Wuhan"' aria-label='Search'></input>
-                        <button className='btn btn-outline-success my-2 my-sm-0 btn-bwm-search' type='submit'>Search</button>
-                    </form>
+                    <RentalSearchInput/>
                     <button className='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarNavAltMarkup' aria-controls='navbarNavAltMarkup' aria-expanded='false' aria-label='Toggle navigation'>
                         <span className='navbar-toggler-icon'></span>
                     </button>

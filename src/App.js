@@ -6,6 +6,7 @@ import { init } from 'reducers';
 import Header from 'components/shared/Header';
 import RentalDetail from 'components/rental/rentalDetail/RentalDetail';
 import RentalListing from 'components/rental/rentalListing/RentalListing';
+import RentalSearchListing from 'components/rental/rentalListing/RentalSearchListing';
 import Login from 'components/login/Login';
 import Register from 'components/register/Register';
 import * as actions from 'actions';
@@ -35,7 +36,7 @@ class App extends Component {
             <Header logoutCallback={this.logoutUser}/>
             <div className='container'>
               <Route exact path="/" render={() => { return <Redirect to='/rentals'/> }}/>
-              <Route exact path="/rentals" component={RentalListing}/>
+              <Route exact path="/rentals" component={RentalSearchListing}/>
               <ProtectedRoute exact path="/rentals/:id" component={RentalDetail}/>
               <Route exact path="/login" component={Login}/>
               <LoggedInRoute exact path="/register" component={Register}/>
