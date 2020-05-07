@@ -1,68 +1,18 @@
 const Rental = require('./models/rental');
 const User = require('./models/user');
 const Booking = require('./models/booking');
+const {logger} = require('./services/logger')
+
+const mockDbData = require('./data.json');
 
 class MockDb {
     constructor(){
-        this.rentals = [{
-            title: "Nice view on ocean",
-            country: "United States",
-            city: "San Francisco",
-            street: "Main street",
-            address: "",
-            category: "condo",
-            image: "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
-            bedrooms: 4,
-            beds: 4,
-            guests: 8,
-            shared: true,
-            description: "Very nice apartment in center of the city.",
-            dailyRate: 43
-            },
-            {
-            title: "Apartment Greenfield",
-            country: "Romania",
-            city: "Bucharest",
-            street: "Drumul Padurea Mogosoaia 38",
-            address: "Flat TO38, Floor 2, Ap. 40",
-            category: "apartment",
-            image: "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
-            bedrooms: 1,
-            beds: 1,
-            guests: 2,
-            shared: false,
-            description: "Very nice apartment in center of the city.",
-            dailyRate: 11
-            },
-            {
-            title: "Old house in nature",
-            country: "Slovakia",
-            city: "Spisska Nova Ves",
-            street: "Banicka 1",
-            address: "",
-            category: "house",
-            image: "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
-            bedrooms: 5,
-            beds: 5,
-            guests: 8,
-            shared: true,
-            description: "Very nice apartment in center of the city.",
-            dailyRate: 23
-        }],
-
-        this.users = [{
-            username: "owner",
-            email:"owner@email.com",
-            password: "password"
-        },
-        {
-            username: "user",
-            email:"user@email.com",
-            password: "password"
-        }]
+        this.rentals = mockDbData.rentals;
+        this.users = mockDbData.users;
     }
 
-    pushDataToDb(){
+    populateDb(){
+        logger.info('Populating database...');
         const owner = new User(this.users[0]);
         this.rentals.forEach((rental) => {
             const newRental = new Rental(rental);
@@ -74,17 +24,20 @@ class MockDb {
 
         const user = new User(this.users[1]);
         user.save();
+        logger.info('Populated database');
     }
 
     async cleanDb(){
+        logger.info('Cleaning database...');
         await Rental.remove();
         await User.remove();
         await Booking.remove();
+        logger.info('Cleaned database');
     }
 
     async seedDb(){
         await this.cleanDb();
-        this.pushDataToDb();
+        this.populateDb();
     }
 }
 

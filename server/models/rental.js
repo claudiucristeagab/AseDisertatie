@@ -19,5 +19,10 @@ const rentalSchema = new Schema({
     user: { type: Schema.Types.ObjectId, ref: 'User' },
     bookings: [{ type: Schema.Types.ObjectId, ref: 'Booking' }],
 });
+rentalSchema.index(
+    {
+        country: 'text', city: 'text', street: 'text'
+    }
+);
 
 module.exports = mongoose.model('Rental', rentalSchema);

@@ -18,8 +18,8 @@ mongoose.connect(
         useUnifiedTopology: true 
     }
 ).then(() => {
-    //const mockDb = new MockDb();
-    //mockDb.seedDb();
+    // const mockDb = new MockDb();
+    // mockDb.seedDb();
 });
 
 const app = express();

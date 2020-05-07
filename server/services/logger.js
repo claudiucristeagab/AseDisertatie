@@ -22,7 +22,7 @@ const mongoDbLog = new MongoDbTransport({
         winston.format.json()
     )
 });
-const asd = config.LOGGING
+
 const transports = [consoleLog, mongoDbLog];
 
 const createLogger = (transports) => {
@@ -45,6 +45,7 @@ const createExpressErrorLogger = (transports) =>{
 }
 
 module.exports = {
+    logger: createLogger(transports),
     expressLogger: createExpressLogger(transports),
     expressErrorLogger: createExpressErrorLogger(transports)
 }

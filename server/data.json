@@ -1,0 +1,61 @@
+{
+    "rentals": [
+        {
+            "title": "Nice view on ocean",
+            "country": "United States",
+            "city": "San Francisco",
+            "street": "Main street",
+            "address": "",
+            "category": "condo",
+            "image": "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
+            "bedrooms": 4,
+            "beds": 4,
+            "guests": 8,
+            "shared": true,
+            "description": "Very nice apartment in center of the city.",
+            "dailyRate": 43
+        },
+        {
+            "title": "Apartment Greenfield",
+            "country": "Romania",
+            "city": "Bucharest",
+            "street": "Drumul Padurea Mogosoaia 38",
+            "address": "Flat TO38, Floor 2, Ap. 40",
+            "category": "apartment",
+            "image": "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
+            "bedrooms": 1,
+            "beds": 1,
+            "guests": 2,
+            "shared": false,
+            "description": "Very nice apartment in center of the city.",
+            "dailyRate": 11
+        },
+        {
+            "title": "Old house in nature",
+            "country": "Romania",
+            "city": "Cluj",
+            "street": "Bulevardul Eroilor 34",
+            "address": "",
+            "category": "house",
+            "image": "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
+            "bedrooms": 5,
+            "beds": 5,
+            "guests": 8,
+            "shared": true,
+            "description": "Very nice apartment in center of the city.",
+            "dailyRate": 23
+        }
+    ],
+    "users" : [
+        {
+            "username": "owner",
+            "email":"owner@email.com",
+            "password": "password"
+        },
+        {
+            "username": "user",
+            "email":"user@email.com",
+            "password": "password"
+        }
+    ]
+}
