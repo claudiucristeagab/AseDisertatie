@@ -9,24 +9,24 @@
     margin-right: 30px;
     font-size: 27px;
     letter-spacing: 1px;
-    color: #61dafb !important;
+    color: #49cf81 !important;
     font-weight: 500; }
   .navbar .nav-item {
     font-size: 14px; }
   .navbar .btn-bwm-search {
-    border-color: #61dafb;
-    color: #61dafb; }
+    border-color: #49cf81;
+    color: #49cf81; }
     .navbar .btn-bwm-search:hover, .navbar .btn-bwm-search:focus, .navbar .btn-bwm-search:active {
       background-color: transparent !important;
-      border-color: #61dafb !important;
-      color: #61dafb !important;
+      border-color: #49cf81 !important;
+      color: #49cf81 !important;
       box-shadow: none; }
   .navbar .nav-item {
     color: #ededed; }
   .navbar .dropdown-menu .dropdown-item {
     font-size: 13px; }
     .navbar .dropdown-menu .dropdown-item:active {
-      background-color: #61dafb; }
+      background-color: #49cf81; }
 
 .custom-form {
   color: #484848; }
@@ -109,10 +109,10 @@
   margin: 0; }
 
 .daterangepicker td.in-range {
-  background-color: red #61dafb; }
+  background-color: red #49cf81; }
 
 .daterangepicker td.active {
-  background-color: #61dafb !important; }
+  background-color: #49cf81 !important; }
 
 #rentalListing {
   /* SINGLE CARD STYLES*/ }
@@ -199,11 +199,11 @@
   color: #d68000; }
 
 .btn-custom {
-  background-color: #61dafb;
-  border-color: #61dafb;
+  background-color: #49cf81;
+  border-color: #49cf81;
   color: white;
   padding: 15px 30px;
   font-size: 20px; }
   .btn-custom:hover, .btn-custom:focus, .btn-customactive {
-    border-color: #61dafb !important;
-    background-color: #61dafb !important; }
+    border-color: #49cf81 !important;
+    background-color: #49cf81 !important; }

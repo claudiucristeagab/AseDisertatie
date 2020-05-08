@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { init } from 'reducers';
 
 import Header from 'components/shared/Header';
+import {Footer} from 'components/shared/Footer';
 import RentalDetail from 'components/rental/rentalDetail/RentalDetail';
 import { RentalCreate } from 'components/rental/rentalCreate/RentalCreate';
 import RentalSearchListing from 'components/rental/rentalListing/RentalSearchListing';
@@ -44,6 +45,7 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               <LoggedInRoute exact path="/register" component={Register} />
             </div>
+            <Footer/>
           </div>
         </BrowserRouter>
       </Provider>

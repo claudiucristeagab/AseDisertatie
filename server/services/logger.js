@@ -1,9 +1,15 @@
 const winston = require('winston');
 const expressWinston = require('express-winston');
 const MongoDbTransport = require('./mongoDbTransport');
-const config = require('../config/config.development');
+// const config = require('../config/config.development');
 
-const customSimpleFormat = (info) => `[${info.timestamp}] ${info.level}: ${info.message} ${JSON.stringify(info.meta)}`;
+const customSimpleFormat = (info) => {
+    let output = `[${info.timestamp}] ${info.level}: ${info.message}`;
+    if (info.meta) {
+        output += ` ${JSON.stringify(info.meta)}`
+    }
+    return output;
+}
 
 const consoleLog = new winston.transports.Console({
     format: winston.format.combine(
@@ -12,10 +18,10 @@ const consoleLog = new winston.transports.Console({
         winston.format.printf(info => customSimpleFormat(info))
     )
 });
-const fileLog = new winston.transports.File({ 
-    filename: 'combined.log',
-    format: winston.format.printf(info => customSimpleFormat(info))
-})
+// const fileLog = new winston.transports.File({ 
+//     filename: 'combined.log',
+//     format: winston.format.printf(info => customSimpleFormat(info))
+// })
 const mongoDbLog = new MongoDbTransport({
     format: winston.format.combine(
         winston.format.timestamp(),
