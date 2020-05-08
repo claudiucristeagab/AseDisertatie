@@ -1,6 +1,7 @@
 import React from 'react';
 import RentalCreateForm from './RentalCreateForm';
 import { Redirect } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import * as actions from 'actions';
 
@@ -20,7 +21,10 @@ export class RentalCreate extends React.Component {
     createRental(rentalData) {
         debugger;
         actions.createRental(rentalData).then(
-            (rental) => this.setState({ redirect: true, redirectRentalId: rental._id }),
+            (rental) => {
+                toast.success('Rental property has been listed.');
+                this.setState({ redirect: true, redirectRentalId: rental._id })
+            },
             (errors) => this.setState({ errors }))
     }
 

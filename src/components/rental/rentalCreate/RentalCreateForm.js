@@ -95,13 +95,6 @@ const RentalCreateForm = props => {
                         component={InputField}
                     />
                     <Field
-                        name="shared"
-                        type="checkbox"
-                        label='Shared'
-                        className='form-control'
-                        component={InputField}
-                    />
-                    <Field
                         name="image"
                         label='Image'
                         component={FileUploadField}

@@ -12,7 +12,7 @@ export function RentalCard(props) {
                     <img className='card-img-top' src={rental.image} alt={rental.title}></img>
                     <div className='card-block'>
                         <h6 className={`card-subtitle ${rental.category}`}>
-                            {rentalType(rental.shared)} {rental.category} &#183; {rental.city}, {rental.country}
+                            {rental.category} &#183; {rental.city}, {rental.country}
                         </h6>
                         <h4 className='card-title'>{rental.title}</h4>
                         <p className='card-text'>${rental.dailyRate} per Night &#183; Free Cancelation</p>

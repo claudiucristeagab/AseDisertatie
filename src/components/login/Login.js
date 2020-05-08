@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import * as actions from 'actions';
+import { ToastContainer, toast } from 'react-toastify';
 import LoginForm from 'components/login/LoginForm';
 //import LoginForm2 from 'components/login/LoginForm2';
 
@@ -22,7 +23,8 @@ class Login extends React.Component {
         const { initialPath } = this.props.location.state || '/rentals';
 
         if(isAuth){
-            return <Redirect to={{pathname: initialPath}}/>
+            toast.success('You are now logged in.')
+            return <Redirect to={{pathname: initialPath || '/rentals'}}/>
         }
 
         return(

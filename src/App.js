@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { init } from 'reducers';
+import { ToastContainer, toast } from 'react-toastify';
 
 import Header from 'components/shared/Header';
 import {Footer} from 'components/shared/Footer';
@@ -34,6 +35,7 @@ class App extends Component {
       <Provider store={store}>
         <BrowserRouter>
           <div className="App">
+            <ToastContainer autoClose={2000} position='bottom-center'/>
             <Header logoutCallback={this.logoutUser} />
             <div className='container'>
               <Switch>

@@ -137,7 +137,6 @@ export class Booking extends React.Component {
     const {guests} = this.state.proposedBooking;
     return (
       <div className='booking'>
-        <ToastContainer/>
         <h3 className='booking-price'>${rental.dailyRate} <span className='booking-per-night'>per night</span></h3>
         <hr></hr>
         <div className='form-group'>
@@ -165,7 +164,7 @@ export class Booking extends React.Component {
             placeholder=''>
             </input>
         </div>
-        <button onClick={this.confirmBooking} className='btn btn-bwm btn-confirm btn-block'>Book now</button>
+        <button onClick={this.confirmBooking} className='btn btn-custom btn-confirm btn-block'>Book now</button>
         <hr></hr>
         <p className='booking-note-title'>People are interested into this house</p>
         <p className='booking-note-text'>

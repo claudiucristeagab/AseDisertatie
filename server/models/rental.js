@@ -12,7 +12,6 @@ const rentalSchema = new Schema({
     bedrooms: Number,
     beds: Number,
     guests: Number,
-    shared: Boolean,
     description: { type: String, required: true },
     dailyRate: Number,
     createdAt: { type: Date, default: Date.now },

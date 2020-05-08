@@ -56,6 +56,17 @@ exports.createBooking = (req,res) => {
         });
     })
 }
+exports.getUserBookings = (req, res) => {
+    const user = res.locals.user;
+    BookingModel.where({ user: user })
+        .populate('rental')
+        .exec((err, foundBookings) => {
+            if (err) {
+                return res.status(422).send({ errors: mongooseHelper.normalizeErrors(err.errors) });
+            }
+            return res.json(foundBookings);
+        })
+}
 
 const validateBooking = (booking, rental) => {
     let isValid = true;
