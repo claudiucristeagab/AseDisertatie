@@ -8,6 +8,7 @@ import {
   LOGIN_FAILURE,
   LOGOUT
 } from './types';
+import * as actionTypes from './types';
 import authService from 'services/authService';
 import axiosService from 'services/axiosService';
 
@@ -17,7 +18,7 @@ const bookingsPath = process.env.REACT_APP_API_URI + 'bookings';
 
 const axiosInstance = axiosService.getInstance();
 
-// Rentals
+//#region  Rentals
 export const fetchRentalById = (rentalId) => {
   return (dispatch) => {
     dispatch(fetchRentalByIdInit());
@@ -73,10 +74,18 @@ const fetchRentalsFailure = (errors) => {
   }
 }
 
-const fetchRentalsInit = (rentals) => {
+const fetchRentalsInit = () => {
   return {
     type: FETCH_RENTALS_INIT
   }
+}
+
+export const fetchUserRentals = () => {
+  return axiosInstance.get(rentalsPath + '/manage', {})
+    .then(
+      res => res.data,
+      err => Promise.reject(err.response.data.errors)
+    );
 }
 
 export const createRental = (rental) => {
@@ -84,7 +93,9 @@ export const createRental = (rental) => {
     .then(res => res.data, err => Promise.reject(err.response.data.errors));
 }
 
-// User
+//#endregion
+
+//#region User
 export const register = (userData) => {
   return axiosInstance.post(`${usersPath}/register`, { ...userData })
     .then(
@@ -141,10 +152,46 @@ export const logout = () => {
   };
 }
 
-// Bookings
+//#endregion
+
+//#region Bookings
 
 export const createBooking = (booking) => {
   return axiosInstance.post(bookingsPath, booking)
     .then(res => res.data)
     .catch(({ response }) => Promise.reject(response.data.errors))
 }
+
+export const fetchUserBookings = () => {
+  return (dispatch) => {
+    dispatch(fetchUserBookingsInit);
+    axiosInstance.get(bookingsPath + '/manage')
+      .then(res => res.data)
+      .then((userBookings) => {
+        dispatch(fetchUserBookingsSuccess(userBookings))
+      })
+      .catch(({ response }) => dispatch(fetchUserBookingsFailure(response.data.errors)));
+  }
+}
+
+export const fetchUserBookingsInit = () => {
+  return {
+    type: actionTypes.FETCH_USER_BOOKINGS_INIT
+  };
+}
+
+export const fetchUserBookingsSuccess = (userBookings) => {
+  return {
+    type: actionTypes.FETCH_USER_BOOKINGS_SUCCESS,
+    userBookings
+  };
+}
+
+export const fetchUserBookingsFailure = (errors) => {
+  return {
+    type: actionTypes.FETCH_USER_BOOKINGS_FAILURE,
+    errors
+  };
+}
+
+//#endregion

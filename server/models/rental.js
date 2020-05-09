@@ -17,6 +17,7 @@ const rentalSchema = new Schema({
     createdAt: { type: Date, default: Date.now },
     user: { type: Schema.Types.ObjectId, ref: 'User' },
     bookings: [{ type: Schema.Types.ObjectId, ref: 'Booking' }],
+    reviews: [{ type: Schema.Types.ObjectId, ref: 'Review'}]
 });
 rentalSchema.index(
     {

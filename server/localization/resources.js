@@ -10,5 +10,8 @@ module.exports = {
     Controllers_User_Auth_InvalidData_Title: 'Invalid data',
     Controllers_User_Auth_InvalidData_Detail: 'Email/password is incorrect.',
     Controllers_User_Unauthorized_Title: 'Unauthorized',
-    Controllers_User_Unauthorized_Detail: 'Login required.'
+    Controllers_User_Unauthorized_Detail: 'Login required.',
+
+    Controllers_Booking_InvalidBooking_OwnRental_Title: 'Invalid booking!',
+    Controllers_Booking_InvalidBooking_OwnRental_Detail: 'Cannot book your own rental.'
 };

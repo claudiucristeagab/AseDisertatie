@@ -15,3 +15,7 @@ export const getRangedDates = (startDate, endDate, dateFormat) => {
 
     return tempDates;
 }
+
+export const formatDate = (date) => {
+    return moment(date).format('Y/MM/DD');
+}

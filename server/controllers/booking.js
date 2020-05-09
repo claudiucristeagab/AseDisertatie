@@ -23,7 +23,7 @@ exports.createBooking = (req,res) => {
             return res.status(422).send({errors: mongooseHelper.normalizeErrors(err.errors)});
         }
         if (foundRental.user.id === user.id){
-            return res.status(422).send({errors: [{title: 'Invalid user!', 
+            return res.status(422).send({errors: [{title: 'Invalid booking!', 
                 detail: 'Cannot book your own rental.'}]});
         }
         if (!validateBooking(booking, foundRental)){

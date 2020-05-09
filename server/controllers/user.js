@@ -3,6 +3,7 @@ const mongooseHelper = require('../helpers/mongoose');
 const UserModel = require('../models/user');
 const Config = require('../config/config.development');
 const LocalizationResources = require('../localization/resources')
+const {logger} = require('../services/logger')
 
 exports.auth = (req, res) => {
     const {email, password} = req.body;
@@ -27,6 +28,7 @@ exports.auth = (req, res) => {
                 userId: user.id,
                 username: user.username,
             }, Config.SECRET, { expiresIn: '1h' });
+            logger.info(`UserController - User with id '${user.id}', username: '${user.username}' logged in`);
             return res.json(token);
         }
         else {
@@ -74,6 +76,7 @@ exports.register = (req, res) => {
             if (err){
                 return res.status(422).send({errors: mongooseHelper.normalizeErrors(err.errors)});
             }
+            logger.info(`UserController - User with id '${user.id}', username: '${user.username}' has registered.`);
             return res.json({'registered': true});
         });
     });

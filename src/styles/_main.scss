@@ -4,9 +4,11 @@
 @import 'form/form.scss';
 
 @import 'booking/booking.scss';
+@import 'booking/user-bookings.scss';
 
 @import 'rental/rentalListing.scss';
 @import 'rental/rentalDetail.scss';
+@import 'rental/userRentals.scss';
 
 .clickable {
     &:hover {
