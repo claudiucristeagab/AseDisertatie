@@ -19,6 +19,7 @@ class Header extends React.Component {
 
     renderAuthButtons() {
         const { isAuth } = this.props.auth;
+        const { pathname } = this.props.location;
 
         if (isAuth) {
             return (
@@ -30,7 +31,7 @@ class Header extends React.Component {
         else {
             return (
                 <React.Fragment>
-                    <Link className='nav-item nav-link active' to='/login'>Login <span className='sr-only'>(current)</span></Link>
+                    <Link className='nav-item nav-link active' to={{pathname: '/login', state: {initialPath: pathname}}} >Login <span className='sr-only'>(current)</span></Link>
                     <Link className='nav-item nav-link' to='/register'>Register</Link>
                 </React.Fragment>
             )

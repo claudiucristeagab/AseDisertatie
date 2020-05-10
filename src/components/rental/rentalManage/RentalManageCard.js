@@ -44,7 +44,6 @@ export class RentalManageCard extends React.Component {
                         }
                         {!wantDeletion &&
                             <button className='btn btn-custom btn-block' onClick={this.showDeleteConfirm}>Remove</button>
-
                         }
                     </div>
                     <div className='card-footer text-muted'>

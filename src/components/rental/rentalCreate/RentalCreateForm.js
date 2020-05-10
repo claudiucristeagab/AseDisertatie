@@ -5,9 +5,10 @@ import { FileUploadField } from 'components/shared/form/FileUploadField';
 import { TextareaField } from 'components/shared/form/TextareaField';
 import { SelectField } from 'components/shared/form/SelectField';
 import { ResultError } from 'components/shared/form/ResultError';
+import * as validators from 'validators/validators';
 // import { required, minLength4 } from 'components/shared/form/validators';
 
-const RentalCreateForm = props => {
+const RentalCreateForm = (props) => {
     const { handleSubmit, pristine, submitting, submitCb, valid, options, errors } = props
     return (
         <form onSubmit={handleSubmit(submitCb)}>
@@ -19,6 +20,7 @@ const RentalCreateForm = props => {
                         label='Title'
                         className='form-control'
                         component={InputField}
+                        validate={[validators.required, validators.maxLength(128)]}
                     />
                     <Field
                         name="description"
@@ -27,6 +29,7 @@ const RentalCreateForm = props => {
                         rows='6'
                         className='form-control'
                         component={TextareaField}
+                        validate={validators.required}
                     />
                     <Field
                         name="country"
@@ -34,6 +37,7 @@ const RentalCreateForm = props => {
                         label='Country'
                         className='form-control'
                         component={InputField}
+                        validate={validators.required}
                     />
                     <Field
                         name="city"
@@ -41,6 +45,7 @@ const RentalCreateForm = props => {
                         label='City'
                         className='form-control'
                         component={InputField}
+                        validate={validators.required}
                     />
                     <Field
                         name="street"
@@ -48,6 +53,7 @@ const RentalCreateForm = props => {
                         label='Street'
                         className='form-control'
                         component={InputField}
+                        validate={validators.required}
                     />
                     <Field
                         name="address"
@@ -64,6 +70,7 @@ const RentalCreateForm = props => {
                         label='Category'
                         className='form-control'
                         component={SelectField}
+                        validate={validators.required}
                     />
                     <Field
                         name="bedrooms"
@@ -71,6 +78,7 @@ const RentalCreateForm = props => {
                         label='Bedrooms'
                         className='form-control'
                         component={InputField}
+                        validate={[validators.required]}
                     />
                     <Field
                         name="beds"
@@ -78,6 +86,7 @@ const RentalCreateForm = props => {
                         label='Beds'
                         className='form-control'
                         component={InputField}
+                        validate={[validators.required]}
                     />
                     <Field
                         name="guests"
@@ -85,6 +94,7 @@ const RentalCreateForm = props => {
                         label='Guests'
                         className='form-control'
                         component={InputField}
+                        validate={[validators.required]}
                     />
                     <Field
                         name="dailyRate"
@@ -93,11 +103,13 @@ const RentalCreateForm = props => {
                         className='form-control'
                         symbol='$'
                         component={InputField}
+                        validate={[validators.required]}
                     />
                     <Field
                         name="image"
                         label='Image'
                         component={FileUploadField}
+                        validate={[validators.required]}
                     />
                     <button className='btn btn-custom btn-form btn-block' type="submit" disabled={!valid || pristine || submitting}>
                         Create Rental

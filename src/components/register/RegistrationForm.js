@@ -44,6 +44,7 @@ const RegistrationForm = (props) => {
         <button className='btn btn-custom btn-form' type="submit" disabled={!valid || pristine || submitting}>
             Register
         </button>
+        <ResultError errors={errors} />
         </div>
     </form>
   );
