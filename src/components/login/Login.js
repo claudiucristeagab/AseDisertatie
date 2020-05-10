@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import * as actions from 'actions';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import LoginForm from 'components/login/LoginForm';
 //import LoginForm2 from 'components/login/LoginForm2';
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import {RentalManageCard} from './RentalManageCard';
 import * as actions from 'actions';
+import { toast } from 'react-toastify';
 
 export class RentalManage extends React.Component {
 
@@ -10,20 +11,27 @@ export class RentalManage extends React.Component {
 
         this.state = {
             userRentals: [],
-            errors: []
+            errors: [],
+            isLoading: false
         }
+        this.deleteRental=this.deleteRental.bind(this);
     }
 
     componentWillMount() {
+        this.setState({
+            isLoading: true
+        });
         actions.fetchUserRentals().then(
             (userRentals) => {
                 this.setState({
-                    userRentals
+                    userRentals,
+                    isLoading: false
                 })
             },
             (errors) => {
                 this.setState({
-                    errors
+                    errors,
+                    isLoading: false
                 })
             }
         );
@@ -32,35 +40,57 @@ export class RentalManage extends React.Component {
     mapAndRender(userRentals){
         return userRentals.map((rental, index) => {
             return (
-                <RentalManageCard rental={rental} key={index}/>
+                <RentalManageCard rental={rental} key={index} deleteRental={this.deleteRental}/>
             )
         })
     }
 
-    selectComponent(userRentals){
-        if (userRentals.length > 0) {
-            return (
-                <div className='row'>
-                    {this.mapAndRender(userRentals)}
-                </div>
+    selectComponent(userRentals, isLoading){
+        if (isLoading) {
+            return(
+                <h1>Loading...</h1>
             )
         }
-        else {
-            return (
-                <div className='alert alert-warning'>
-                    You dont have any rentals currenty created. If you wan t to rent your properties, please click on this link.
-                    <Link style={{'marginLeft': '10px'}} className='btn btn-custom' to='/rentals/create'>Register Rental</Link>
-                </div>
-            )
+        else{
+            if (userRentals.length > 0) {
+                return (
+                    <div className='row'>
+                        {this.mapAndRender(userRentals)}
+                    </div>
+                )
+            }
+            else {
+                return (
+                    <div className='alert alert-warning'>
+                        You dont have any rentals currenty created. If you want to rent your properties, please click on this link.
+                        <Link style={{'marginLeft': '10px'}} className='btn btn-custom' to='/rentals/create'>Create Rental</Link>
+                    </div>
+                )
+            }
         }
     }
 
-    render() {
+    deleteRental(id){
         const {userRentals} = this.state;
+        actions.deleteRental(id).then(
+            () => {
+                this.setState({
+                    userRentals: userRentals.filter(x => x._id !== id)
+                })
+                toast.success('Rental was successfully deleted.');
+            },
+            errors => {
+                toast.error(errors[0].detail);
+            }
+        )
+    }
+
+    render() {
+        const {userRentals, isLoading} = this.state;
         return (
             <section id='userRentals'>
                 <h1 className='page-title'>My Rentals</h1>
-                {this.selectComponent(userRentals)}
+                {this.selectComponent(userRentals, isLoading)}
             </section>
         )
     }

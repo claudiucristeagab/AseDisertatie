@@ -2,9 +2,9 @@ import React from 'react';
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import * as moment from 'moment';
 import * as actions from 'actions';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { getRangedDates } from 'helpers';
-import {BookingModal} from './BookingModal';
+import { BookingModal } from './BookingModal';
 
 export class Booking extends React.Component {
 

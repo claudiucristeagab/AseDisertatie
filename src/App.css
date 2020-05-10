@@ -275,3 +275,6 @@
   .btn-custom:hover, .btn-custom:focus, .btn-customactive {
     border-color: #49cf81 !important;
     background-color: #49cf81 !important; }
+
+.Toastify__toast--success {
+  background: #49cf81 !important; }

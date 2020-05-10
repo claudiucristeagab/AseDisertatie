@@ -100,7 +100,7 @@ router.post('', UserController.authMiddleware, function (req, res) {
     rental.user = user;
     RentalModel.create(rental, (err, newRental) => {
         if (err) {
-            res.status(422).send({ errors: [{ title: 'Rental error', detail: 'Could not find rental.' }] });
+            res.status(422).send({ errors: [{ title: 'Rental error', detail: 'Could not create rental.' }] });
         }
         UserModel.update({ _id: user.id }, { $push: { rentals: newRental } });
         return res.json(newRental);

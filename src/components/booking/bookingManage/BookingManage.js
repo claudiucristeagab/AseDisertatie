@@ -6,10 +6,6 @@ import { BookingCard } from './BookingCard';
 
 class BookingManage extends React.Component {
 
-    constructor() {
-        super();
-    }
-
     componentWillMount() {
         this.props.dispatch(actions.fetchUserBookings());
     }
