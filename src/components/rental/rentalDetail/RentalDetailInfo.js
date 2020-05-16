@@ -1,6 +1,6 @@
 import React from 'react'
 import { RentalAssets } from './RentalAssets';
-import { Reviews } from 'components/review/Reviews';
+import Reviews from 'components/review/Reviews';
 import { rentalType } from 'helpers';
 
 export function RentalDetailInfo(props){
@@ -20,7 +20,7 @@ export function RentalDetailInfo(props){
                 {rental.description}
             </p>
             <hr></hr>
-            <Reviews/>
+            <Reviews rentalId={rental._id}/>
         </div>   
     )
 }

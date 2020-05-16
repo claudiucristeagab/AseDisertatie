@@ -7,7 +7,6 @@ const { normalizeErrors } = require('../helpers/mongoose');
 
 exports.getReviews = function(req, res) {
   const { rentalId } = req.query;
-
   Review.find({'rental': rentalId})
         .populate('user')
         .exec((err, reviews) => {
@@ -15,7 +14,6 @@ exports.getReviews = function(req, res) {
     if (err) {
         return res.status(422).send({errors: normalizeErrors(err.errors)});
     }
-
     return res.json(reviews);
   });
 }
@@ -35,6 +33,10 @@ exports.createReview = function(req, res) {
       return res.status(422).send({errors: normalizeErrors(err.errors)});
     }
 
+    if (!foundBooking) {
+      return res.status(422).send({errors: [{title: 'Invalid booking!', detail: 'Booking does not exist!'}]});
+    }
+
     const {rental} = foundBooking;
 
     if (rental.user.id === user.id) {
@@ -50,9 +52,9 @@ exports.createReview = function(req, res) {
     const timeNow = moment();
     const endAt = moment(foundBooking.endAt);
 
-    if (!endAt.isBefore(timeNow)) {
-       return res.status(422).send({errors: [{title: 'Invalid Date!', detail: 'You can place the review only after your trip is finished'}]});
-    }
+    // if (!endAt.isBefore(timeNow)) {
+    //    return res.status(422).send({errors: [{title: 'Invalid Date!', detail: 'You can place the review only after your trip is finished'}]});
+    // }
 
     if (foundBooking.review) {
       return res.status(422).send({errors: [{title: 'Booking Error!', detail: 'Only one review per booking is allowed!'}]});

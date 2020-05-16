@@ -3,10 +3,11 @@ const Schema = mongoose.Schema;
 
 const reviewSchema = new Schema({
     text: { type: String },
-    rating: { type: String },
+    rating: { type: Number, min: 1, max: 5 },
     user: { type: Schema.Types.ObjectId, ref: 'User' },
     booking: { type: Schema.Types.ObjectId, ref: 'Booking' },
-    createdAt: { type: Date, default: Date.now }
+    rental: { type: Schema.Types.ObjectId, ref: 'Rental' },
+    createdAt: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model('Review', reviewSchema);

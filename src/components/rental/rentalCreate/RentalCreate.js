@@ -19,7 +19,6 @@ export class RentalCreate extends React.Component {
     }
 
     createRental(rentalData) {
-        debugger;
         actions.createRental(rentalData).then(
             (rental) => {
                 toast.success('Rental property has been listed.');

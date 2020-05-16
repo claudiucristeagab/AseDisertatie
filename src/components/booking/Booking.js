@@ -177,6 +177,9 @@ class Booking extends React.Component {
         { isAuth &&
           this.displayLoggedIn(rental, guests)
         }
+        { !isAuth &&
+          <h3 className='booking-price'>Please login to be able to book.</h3>
+        }
         <p className='booking-note-title'>People are interested into this house</p>
         <p className='booking-note-text'>
           More than 500 people checked this rental in last month.

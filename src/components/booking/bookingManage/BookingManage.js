@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import * as actions from 'actions';
 import { connect } from 'react-redux';
 import { BookingCard } from './BookingCard';
+import {ReviewModal} from 'components/review/ReviewModal';
 
 class BookingManage extends React.Component {
 
@@ -10,10 +11,10 @@ class BookingManage extends React.Component {
         this.props.dispatch(actions.fetchUserBookings());
     }
 
-    mapAndRender(userBookings) {
+    renderBookings(userBookings) {
         return userBookings.map((booking, index) => {
             return (
-                <BookingCard key={index} booking={booking} />
+                <BookingCard key={index} booking={booking} hasReview={!!booking.review} />
             )
         })
     }
@@ -28,7 +29,7 @@ class BookingManage extends React.Component {
             if (userBookings.length > 0) {
                 return (
                     <div className='row'>
-                        {this.mapAndRender(userBookings)}
+                        {this.renderBookings(userBookings)}
                     </div>
                 )
             }

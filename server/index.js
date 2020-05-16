@@ -9,7 +9,8 @@ const MockDb = require('./mockDb');
 
 const rentalRoutes = require('./routes/rentals'),
     userRoutes = require('./routes/users'),
-    bookingRoutes = require('./routes/bookings'); 
+    bookingRoutes = require('./routes/bookings'),
+    reviewRoutes = require('./routes/reviews');
 
 mongoose.connect(
     config.DB_CONNECTION_STRING, 
@@ -31,6 +32,7 @@ app.use(expressLogger);
 app.use('/api/rentals/', rentalRoutes);
 app.use('/api/users/', userRoutes);
 app.use('/api/bookings/', bookingRoutes);
+app.use('/api/reviews/', reviewRoutes);
 
 app.use(expressErrorLogger);
 

@@ -15,6 +15,7 @@ import axiosService from 'services/axiosService';
 const rentalsPath = process.env.REACT_APP_API_URI + 'rentals';
 const usersPath = process.env.REACT_APP_API_URI + 'users';
 const bookingsPath = process.env.REACT_APP_API_URI + 'bookings';
+const reviewsPath = process.env.REACT_APP_API_URI + 'reviews';
 
 const axiosInstance = axiosService.getInstance();
 
@@ -197,6 +198,48 @@ export const fetchUserBookingsFailure = (errors) => {
     type: actionTypes.FETCH_USER_BOOKINGS_FAILURE,
     errors
   };
+}
+
+//#endregion
+
+//#region Reviews
+
+export const getReviewsForRental = (id) => {
+  return dispatch => {
+    axiosInstance.get(reviewsPath, {
+      params: {
+        rentalId: id
+      }
+    }).then(res => res.data)
+      .then((reviews) => dispatch(fetchReviewsSuccess(reviews)))
+      .catch(({ response }) => dispatch(fetchReviewsFailure(response.data.errors)));
+  }
+}
+
+const fetchReviewsSuccess = (reviews) => {
+  return {
+    type: actionTypes.FETCH_REVIEWS_FOR_RENTAL_SUCCESS,
+    reviews
+  }
+}
+
+const fetchReviewsFailure = (errors) => {
+  return {
+    type: actionTypes.FETCH_REVIEWS_FOR_RENTAL_FAILURE,
+    errors
+  }
+}
+
+export const createReview = (review, bookingId) => {
+  console.log(bookingId);
+  return axiosInstance.post(reviewsPath, review,
+    {
+      params: {
+        bookingId: bookingId
+      }
+    })
+    .then(res => res.data)
+    .catch(({ response }) => Promise.reject(response.data.errors))
 }
 
 //#endregion
