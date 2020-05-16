@@ -3,6 +3,7 @@ const UserModel = require('../models/user');
 const BookingModel = require('../models/booking');
 const ReviewModel = require('../models/review');
 const { logger } = require('../services/logger')
+const fs = require('fs');
 
 const mongooseHelper = require('../helpers/mongoose');
 
@@ -128,6 +129,12 @@ exports.deleteRental = (req, res) => {
                 if (err) {
                     return res.status(422).send({ errors: mongooseHelper.normalizeErrors(err.errors) });
                 }
+                // fs.unlink('.'+foundRental.image, function(err){
+                //     if(err){
+                //         return res.status(422).send({ errors: [{ title: 'Image errpr', detail: 'Could not delete rental image.' }] });
+                //     }
+                //     return res.json({ 'status': 'deleted' });
+                // });
                 return res.json({ 'status': 'deleted' });
             })
         })

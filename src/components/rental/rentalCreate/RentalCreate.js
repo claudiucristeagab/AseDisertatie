@@ -19,12 +19,23 @@ export class RentalCreate extends React.Component {
     }
 
     createRental(rentalData) {
-        actions.createRental(rentalData).then(
-            (rental) => {
-                toast.success('Rental property has been listed.');
-                this.setState({ redirect: true, redirectRentalId: rental._id })
+        debugger;
+        actions.uploadImage(rentalData.image).then(
+            (imageUrl) => {
+                console.log(imageUrl);
+                const updatedRentalData = {...rentalData, image: imageUrl};
+                actions.createRental(updatedRentalData).then(
+                    (rental) => {
+                        console.log(rental);
+                        toast.success('Rental property has been listed.');
+                        this.setState({ redirect: true, redirectRentalId: rental._id })
+                    },
+                    (errors) => this.setState({ errors }))
             },
-            (errors) => this.setState({ errors }))
+            (errors) => {
+                this.setState({ errors })
+            }
+        )
     }
 
     render() {

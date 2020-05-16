@@ -278,3 +278,8 @@
 
 .Toastify__toast--success {
   background: #49cf81 !important; }
+
+.card-img-top {
+  width: 100%;
+  height: 15vw;
+  object-fit: cover; }

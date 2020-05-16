@@ -16,6 +16,7 @@ const rentalsPath = process.env.REACT_APP_API_URI + 'rentals';
 const usersPath = process.env.REACT_APP_API_URI + 'users';
 const bookingsPath = process.env.REACT_APP_API_URI + 'bookings';
 const reviewsPath = process.env.REACT_APP_API_URI + 'reviews';
+const imagesPath = process.env.REACT_APP_API_URI + 'images';
 
 const axiosInstance = axiosService.getInstance();
 
@@ -251,3 +252,16 @@ export const createReview = (review, bookingId) => {
 }
 
 //#endregion
+
+//#region Images
+
+export const uploadImage = image => {
+  const formData = new FormData();
+  formData.append('image', image)
+  return axiosInstance.post(imagesPath, formData)
+    .then(json => {
+      console.log(json.data.imageUrl);
+      return json.data.imageUrl
+    })
+    .catch(({response}) => Promise.reject(response.data.errors))
+}
