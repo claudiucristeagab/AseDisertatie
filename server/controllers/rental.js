@@ -129,13 +129,14 @@ exports.deleteRental = (req, res) => {
                 if (err) {
                     return res.status(422).send({ errors: mongooseHelper.normalizeErrors(err.errors) });
                 }
-                // fs.unlink('.'+foundRental.image, function(err){
-                //     if(err){
-                //         return res.status(422).send({ errors: [{ title: 'Image errpr', detail: 'Could not delete rental image.' }] });
-                //     }
-                //     return res.json({ 'status': 'deleted' });
-                // });
-                return res.json({ 'status': 'deleted' });
+                const path = './public'+foundRental.image;
+                fs.unlink(path, function(err){
+                    logger.info(`Deleting file: '${path}'`);
+                    if(err){
+                        logger.error(err.message);
+                    }
+                    return res.json({ 'status': 'deleted' });
+                });
             })
         })
 }

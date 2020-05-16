@@ -260,7 +260,6 @@ export const uploadImage = image => {
   formData.append('image', image)
   return axiosInstance.post(imagesPath, formData)
     .then(json => {
-      console.log(json.data.imageUrl);
       return json.data.imageUrl
     })
     .catch(({response}) => Promise.reject(response.data.errors))

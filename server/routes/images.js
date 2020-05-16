@@ -17,7 +17,15 @@ const upload = multer({
     limits: { fieldSize: 4 * 1024 * 1024 },
     fileFilter
 })
+const imageUpload = upload.single('image');
 
-router.post('', UserController.authMiddleware, upload.single('image'), ImageController.uploadImage);
+router.post('', UserController.authMiddleware, (req, res, next) => {
+    imageUpload(req, res, (err) => {
+        if (err){
+            return res.status(422).send({errors: [{title: 'Image Upload Error', detail: 'Image too big'}]});
+        }
+        next();
+    })
+}, ImageController.uploadImage);
 
 module.exports = router;

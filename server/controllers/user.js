@@ -27,7 +27,7 @@ exports.auth = (req, res) => {
             const token = jwt.sign({
                 userId: user.id,
                 username: user.username,
-            }, Config.SECRET, { expiresIn: '1h' });
+            }, Config.SECRET, { expiresIn: '24h' });
             logger.info(`UserController - User with id '${user.id}', username: '${user.username}' logged in`);
             return res.json(token);
         }
