@@ -206,6 +206,7 @@ export const fetchUserBookingsFailure = (errors) => {
 
 export const getReviewsForRental = (id) => {
   return dispatch => {
+    dispatch(fetchReviewsInit());
     axiosInstance.get(reviewsPath, {
       params: {
         rentalId: id
@@ -213,6 +214,13 @@ export const getReviewsForRental = (id) => {
     }).then(res => res.data)
       .then((reviews) => dispatch(fetchReviewsSuccess(reviews)))
       .catch(({ response }) => dispatch(fetchReviewsFailure(response.data.errors)));
+  }
+}
+
+const fetchReviewsInit = (reviews) => {
+  return {
+    type: actionTypes.FETCH_REVIEWS_FOR_RENTAL_INIT,
+    reviews
   }
 }
 

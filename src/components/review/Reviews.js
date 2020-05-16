@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from 'actions';
+import { ReviewPost } from './ReviewPost';
 
 class Reviews extends React.Component {
 
@@ -9,19 +10,27 @@ class Reviews extends React.Component {
         this.props.dispatch(actions.getReviewsForRental(rentalId));
     }
 
-    mapAndRender(reviews){
-        return reviews.map((review, index) => {
-            return (
-                <p key={index}>{review.text} ({review.rating}/5), posted on {review.createdAt} by {review.user.username}</p>
-            )
-        })
+    mapAndRender(reviews, isLoading){
+        if(isLoading){
+            return (<div>Loading...</div>)
+        }
+        else {
+            if(reviews.length > 0){
+                return reviews.map((review, index) => <ReviewPost key={index} review={review}/>)
+            }
+            else {
+                return (<div>There are no reviews for this property</div>)
+            }
+        }
+        
     }
 
     render() {
-        const {reviews} = this.props;
+        const {reviews, isLoading} = this.props;
         return (
             <div>
-                {this.mapAndRender(reviews)}
+                <h2>Reviews</h2>
+                {this.mapAndRender(reviews, isLoading)}
             </div>
         )
     }
@@ -31,7 +40,8 @@ class Reviews extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        reviews: state.reviews.data
+        reviews: state.reviews.data,
+        isLoading: state.reviews.isLoading
     }
 }
 
