@@ -16,14 +16,15 @@ export class ReviewPost extends React.Component {
                     <div className="col-md-10">
                         <div>
                             <a><strong>{`${review.user.username} (${review.user.email})`}</strong></a>
+                            <a> Stayed on {`${formatDate(review.booking.startAt)} - ${formatDate(review.booking.endAt)}`}</a>
                             <div className="review-section">
                                 <StarRatings
-                                    rating={5}
+                                    rating={review.rating}
                                     starRatedColor="orange"
                                     starHoverColor="orange"
                                     starDimension="25px"
                                     starSpacing="2px"
-                                    numberOfStars={review.rating}
+                                    numberOfStars={5}
                                     name='rating'
                                 />
                             </div>

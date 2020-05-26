@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import * as actions from 'actions';
 import { connect } from 'react-redux';
 import { BookingCard } from './BookingCard';
-import {ReviewModal} from 'components/review/ReviewModal';
 
 class BookingManage extends React.Component {
 

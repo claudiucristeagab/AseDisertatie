@@ -7,33 +7,47 @@ import Booking from 'components/booking/Booking';
 import Loader from 'react-loader-spinner'
 
 class RentalDetail extends React.Component {
-    componentWillMount(){
-        const rentalId = this.props.match.params.id;
-        this.props.dispatch(actions.fetchRentalById(rentalId));
+    constructor() {
+        super();
+        this.state = {
+            score: 1
+        }
     }
 
-    render(){
-        const rental = this.props.rental;
-        if(rental._id) {
+    componentWillMount() {
+        const rentalId = this.props.match.params.id;
+        this.props.dispatch(actions.fetchRentalById(rentalId));
+        actions.getScoreForRental(rentalId)
+            .then((score) => {
+                this.setState({
+                    score
+                });
+            });
+    }
+
+    render() {
+        const { rental } = this.props;
+        const { score } = this.state;
+        if (rental._id) {
             return (
                 <section id='rentalDetail'>
                     <div className='upper-section'>
                         <div className='row'>
-                        <div className='col-md-6'>
-                            <img src={rental.image} alt=''></img>
-                        </div>
-                        <div className='col-md-6'>
-                            <RentalMap location={`${rental.country}, ${rental.city}, ${rental.street}`}/>
-                        </div>
+                            <div className='col-md-6'>
+                                <img src={rental.image} alt=''></img>
+                            </div>
+                            <div className='col-md-6'>
+                                <RentalMap location={`${rental.country}, ${rental.city}, ${rental.street}`} />
+                            </div>
                         </div>
                     </div>
                     <div className='details-section'>
                         <div className='row'>
                             <div className='col-md-8'>
-                                <RentalDetailInfo rental={rental}/>
+                                <RentalDetailInfo rental={rental} score={score} />
                             </div>
-                            <div className='col-md-4'> 
-                                <Booking rental={rental}/>
+                            <div className='col-md-4'>
+                                <Booking rental={rental} />
                             </div>
                         </div>
                     </div>

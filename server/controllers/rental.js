@@ -54,40 +54,6 @@ exports.getRentals = (req, res) => {
         });
 }
 
-exports.countRentals = (req, res) => {
-    const searchedString = req.query.search;
-
-    const query = {};
-    if (searchedString) {
-        let splitStrings = searchedString.split(' ');
-        const searchText = splitStrings
-            .map(x => {
-                return '"' + x + '"';
-            })
-            .join(' ');
-        query["$text"] = {
-            $search: searchText,
-            $caseSensitive: false
-        }
-    }
-
-    RentalModel.count(query)
-        .exec((err, foundRentals) => {
-            if (err) {
-                return res.status(422).send({ errors: mongooseHelper.normalizeErrors(err.errors) });
-            }
-            if (foundRentals.length === 0) {
-                return res.status(422).send({
-                    errors: [{
-                        title: 'No rentals found!',
-                        detail: `There are no rentals for your current search.`
-                    }]
-                });
-            }
-            return res.json(foundRentals);
-        });
-}
-
 exports.getRentalById = (req, res) => {
     const id = req.params.id;
     RentalModel.findById(id)

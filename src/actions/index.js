@@ -241,8 +241,16 @@ const fetchReviewsFailure = (errors) => {
   }
 }
 
+export const getScoreForRental = (rentalId) => {
+  return axiosInstance.get(`${reviewsPath}/${rentalId}/rating`)
+    .then(
+      res => res.data,
+      (err) => Promise.reject(err.response.data.errors)
+    )
+}
+
 export const createReview = (review, bookingId) => {
-  console.log(bookingId);
+
   return axiosInstance.post(reviewsPath, review,
     {
       params: {
@@ -264,7 +272,7 @@ export const uploadImage = image => {
     .then(json => {
       return json.data.imageUrl
     })
-    .catch(({response}) => Promise.reject(response.data.errors))
+    .catch(({ response }) => Promise.reject(response.data.errors))
 
-//#endregion
+  //#endregion
 }

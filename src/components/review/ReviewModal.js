@@ -52,6 +52,7 @@ export class ReviewModal extends React.Component {
                     toast.success('Review created');
                 },
                 errors => {
+                    console.log(errors);
                     toast.error(errors[0].detail);
                 })
     }
