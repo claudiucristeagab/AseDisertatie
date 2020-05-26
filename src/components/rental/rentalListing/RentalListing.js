@@ -13,7 +13,7 @@ class RentalListing extends React.Component {
         return (
             <section id='rentalListing'>
                 <h1 className='page-title'>Home is where you want it</h1>
-                <RentalList rentals={this.props.rentals}/>
+                <RentalList rentals={this.props.rentals} />
             </section>
         )
     }

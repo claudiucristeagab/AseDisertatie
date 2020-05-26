@@ -18,7 +18,6 @@ export class FileUploadField extends React.Component {
         this.reader = new FileReader();
         this.reader.addEventListener('load', (event) => {
             const {input: {onChange}} = this.props;
-            console.log(event.target.result);
             this.setState({
                 imageBase64: event.target.result
             });
@@ -28,6 +27,7 @@ export class FileUploadField extends React.Component {
 
     onChange(event) {
         const {input: {onChange}} = this.props;
+        console.log(event.target.files);
         const selectedFile = event.target.files[0];
         
         if(selectedFile){
@@ -45,7 +45,7 @@ export class FileUploadField extends React.Component {
             <div className='form-group'>
                 <label>{label}</label>
                 <div className='inputGroup'>
-                    <input type='file'
+                    <input type='file' multiple
                         accept='.jpg, .png, .jpeg'
                         onChange={this.onChange} />
                 </div>

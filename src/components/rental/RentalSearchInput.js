@@ -28,8 +28,9 @@ class RentalSearchInput extends React.Component {
                     onKeyPress={(event) => this.handleKeyPress(event)}
                     ref={this.searchInput}
                     className='form-control mr-sm-2 bwm-search'
-                    type='search' placeholder='Try "Wuhan"'
-                    aria-label='Search'></input>
+                    type='search' placeholder='Try "Bucharest"'
+                    aria-label='Search'>
+                </input>
                 <button
                     onClick={this.search}
                     className='btn btn-outline-success my-2 my-sm-0 btn-bwm-search'

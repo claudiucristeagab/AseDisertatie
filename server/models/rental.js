@@ -21,7 +21,7 @@ const rentalSchema = new Schema({
 });
 rentalSchema.index(
     {
-        country: 'text', city: 'text', street: 'text'
+        country: 'text', city: 'text', street: 'text', address: 'text'
     }
 );
 

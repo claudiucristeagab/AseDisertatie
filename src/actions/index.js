@@ -20,7 +20,7 @@ const imagesPath = process.env.REACT_APP_API_URI + 'images';
 
 const axiosInstance = axiosService.getInstance();
 
-//#region  Rentals
+//#region Rentals
 export const fetchRentalById = (rentalId) => {
   return (dispatch) => {
     dispatch(fetchRentalByIdInit());
@@ -45,13 +45,15 @@ const fetchRentalByIdSuccess = (rental) => {
   }
 }
 
-export const fetchRentals = (searchQuery) => {
+export const fetchRentals = (searchQuery, userId, page) => {
   return (dispatch) => {
     dispatch(fetchRentalsInit());
     axiosInstance.get(rentalsPath,
       {
         params: {
-          search: searchQuery
+          search: searchQuery,
+          user: userId,
+          page: page
         }
       })
       .then(res => res.data)

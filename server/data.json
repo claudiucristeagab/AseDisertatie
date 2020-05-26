@@ -1,17 +1,17 @@
 {
     "rentals": [
         {
-            "title": "Nice view on ocean",
+            "title": "Ocean condo",
             "country": "United States",
             "city": "San Francisco",
-            "street": "Main street",
-            "address": "",
+            "street": "782 Great Hwy",
+            "address": "CA 94121",
             "category": "condo",
-            "image": "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
+            "image": "/images/rentals/condo.jpg",
             "bedrooms": 4,
             "beds": 4,
             "guests": 8,
-            "description": "Very nice apartment in center of the city.",
+            "description": "You can actually see the ocean. Really!",
             "dailyRate": 43
         },
         {
@@ -21,11 +21,11 @@
             "street": "Drumul Padurea Mogosoaia 38",
             "address": "Flat TO38, Floor 2, Ap. 40",
             "category": "apartment",
-            "image": "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
+            "image": "https://www.greenfieldresidence.ro/pictures/2018/06/18/1581.jpg",
             "bedrooms": 1,
             "beds": 1,
             "guests": 2,
-            "description": "Very nice apartment in center of the city.",
+            "description": "One with the nature. Really nice.",
             "dailyRate": 11
         },
         {
@@ -35,11 +35,11 @@
             "street": "Bulevardul Eroilor 34",
             "address": "",
             "category": "house",
-            "image": "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
+            "image": "/images/rentals/cluj.jpg",
             "bedrooms": 5,
             "beds": 5,
             "guests": 8,
-            "description": "Very nice apartment in center of the city.",
+            "description": "Comfortable house in Cluj.",
             "dailyRate": 23
         }
     ],

@@ -6,7 +6,7 @@ import * as actions from 'actions';
 
 export default class Register extends React.Component {
 
-    constructor(){
+    constructor() {
         super();
         this.state = {
             errors: [],
@@ -15,7 +15,7 @@ export default class Register extends React.Component {
         this.registerUser = this.registerUser.bind(this);
     }
 
-    registerUser(userData){
+    registerUser(userData) {
         actions.register(userData)
             .then(
                 (registered) => {
@@ -31,28 +31,22 @@ export default class Register extends React.Component {
             )
     }
 
-    render(){
-        const {errors, redirectToLogin} = this.state;
+    render() {
+        const { errors, redirectToLogin } = this.state;
 
         // Redirect the user to the login screen after a successful registration
-        if(redirectToLogin){
-            return <Redirect to={{pathname: '/login', state: {successRegister: true}}}/>
+        if (redirectToLogin) {
+            return <Redirect to={{ pathname: '/login', state: { successRegister: true } }} />
         }
 
-        return(
+        return (
             <section id='register'>
                 <div className='custom-form'>
                     <div className='row'>
-                    <div className='col-md-5'>
-                        <h1>Register</h1>
-                        <RegistrationForm submitCallback={this.registerUser} errors={errors}/>
-                    </div>
-                    <div className='col-md-6 ml-auto'>
-                        <div className='image-container'>
-                        <h2 className='catchphrase'>Rent my stuff up.</h2>
-                        <img src='' alt=""/>
+                        <div className='col-md-5'>
+                            <h1>Register</h1>
+                            <RegistrationForm submitCallback={this.registerUser} errors={errors} />
                         </div>
-                    </div>
                     </div>
                 </div>
             </section>

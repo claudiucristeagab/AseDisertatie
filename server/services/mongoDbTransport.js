@@ -1,5 +1,4 @@
 const Transport = require('winston-transport');
-const util = require('util');
 const LogModel = require('../models/log');
 
 module.exports = class MongoDbTransport extends Transport {

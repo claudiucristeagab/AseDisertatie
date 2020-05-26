@@ -9,27 +9,50 @@ class RentalSearchListing extends React.Component {
     constructor() {
         super();
         this.state = {
-            searchedQuery: ''
+            searchedQuery: '',
+            page: 1
         }
     }
     componentWillMount() {
         const searchQuery = queryString.parse(this.props.location.search).search;
-        this.searchRentals(searchQuery);
+        const page = queryString.parse(this.props.location.search).page;
+
+        this.searchRentals(searchQuery, page);
     }
 
-    componentDidUpdate(){
-        const {searchedQuery} = this.state;
+    componentDidUpdate() {
+        const { searchedQuery, page } = this.state;
+
         const currentSearchQuery = queryString.parse(this.props.location.search).search;
-        if(currentSearchQuery !== searchedQuery){
-            this.searchRentals(currentSearchQuery);
+        const currentPage = queryString.parse(this.props.location.search).page;
+
+        if (currentSearchQuery !== searchedQuery || currentPage !== page) {
+            this.searchRentals(currentSearchQuery, currentPage);
         }
     }
 
-    searchRentals(searchQuery){
+    searchRentals(searchQuery, page) {
         this.setState({
-            searchedQuery: searchQuery
+            searchedQuery: searchQuery,
+            page: page
         });
-        this.props.dispatch(actions.fetchRentals(searchQuery));
+        this.props.dispatch(actions.fetchRentals(searchQuery, null, page));
+    }
+
+    getPaginationComponent(page){
+        return(
+            <nav aria-label="...">
+                    <ul class="pagination">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">page</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+        )
     }
 
     render() {
@@ -43,9 +66,10 @@ class RentalSearchListing extends React.Component {
                 }
                 {
                     errors.length > 0 &&
-                    <h2 className='page-title'>{errors[0].detail}</h2>
+                    <h3 className='page-title'>{errors[0].detail}</h3>
                 }
                 <RentalList rentals={rentals} />
+                
             </section>
         )
     }
