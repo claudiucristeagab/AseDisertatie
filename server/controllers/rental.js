@@ -11,7 +11,7 @@ const mongooseHelper = require('../helpers/mongoose');
 exports.getRentals = (req, res) => {
     const page = req.query.page;
     const searchedString = req.query.search;
-    const searchedUser = req.query.user;
+    // const searchedUser = req.query.user;
 
     const query = {};
     if (searchedString) {
@@ -26,9 +26,9 @@ exports.getRentals = (req, res) => {
             $caseSensitive: false
         }
     }
-    if (searchedUser) {
-        query["user"] = ObjectId(searchedUser);
-    }
+    // if (searchedUser) {
+    //     query["user"] = ObjectId(searchedUser);
+    // }
     let docsToSkip = 0;
     if(!!page){
         docsToSkip = PAGE_SIZE * (page-1);
@@ -38,6 +38,40 @@ exports.getRentals = (req, res) => {
         .select('-bookings')
         .limit(PAGE_SIZE)
         .skip(docsToSkip)
+        .exec((err, foundRentals) => {
+            if (err) {
+                return res.status(422).send({ errors: mongooseHelper.normalizeErrors(err.errors) });
+            }
+            if (foundRentals.length === 0) {
+                return res.status(422).send({
+                    errors: [{
+                        title: 'No rentals found!',
+                        detail: `There are no rentals for your current search.`
+                    }]
+                });
+            }
+            return res.json(foundRentals);
+        });
+}
+
+exports.countRentals = (req, res) => {
+    const searchedString = req.query.search;
+
+    const query = {};
+    if (searchedString) {
+        let splitStrings = searchedString.split(' ');
+        const searchText = splitStrings
+            .map(x => {
+                return '"' + x + '"';
+            })
+            .join(' ');
+        query["$text"] = {
+            $search: searchText,
+            $caseSensitive: false
+        }
+    }
+
+    RentalModel.count(query)
         .exec((err, foundRentals) => {
             if (err) {
                 return res.status(422).send({ errors: mongooseHelper.normalizeErrors(err.errors) });

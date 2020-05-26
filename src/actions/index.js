@@ -45,14 +45,14 @@ const fetchRentalByIdSuccess = (rental) => {
   }
 }
 
-export const fetchRentals = (searchQuery, userId, page) => {
+export const fetchRentals = (searchQuery, page) => {
   return (dispatch) => {
     dispatch(fetchRentalsInit());
     axiosInstance.get(rentalsPath,
       {
         params: {
           search: searchQuery,
-          user: userId,
+          // user: userId,
           page: page
         }
       })
@@ -265,4 +265,6 @@ export const uploadImage = image => {
       return json.data.imageUrl
     })
     .catch(({response}) => Promise.reject(response.data.errors))
+
+//#endregion
 }

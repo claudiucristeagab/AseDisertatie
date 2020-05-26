@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import {RentalManageCard} from './RentalManageCard';
 import * as actions from 'actions';
 import { toast } from 'react-toastify';
+import Loader from 'react-loader-spinner'
 
 export class RentalManage extends React.Component {
 
@@ -48,7 +49,9 @@ export class RentalManage extends React.Component {
     selectComponent(userRentals, isLoading){
         if (isLoading) {
             return(
-                <h1>Loading...</h1>
+                <div className="d-flex justify-content-center">
+                    <Loader type="TailSpin" color="#49cf81" height={80} width={80} />
+                </div>
             )
         }
         else{

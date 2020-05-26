@@ -4,6 +4,7 @@ import * as actions from 'actions';
 import { RentalMap } from './RentalMap';
 import { RentalDetailInfo } from './RentalDetailInfo';
 import Booking from 'components/booking/Booking';
+import Loader from 'react-loader-spinner'
 
 class RentalDetail extends React.Component {
     componentWillMount(){
@@ -41,8 +42,8 @@ class RentalDetail extends React.Component {
         }
         else {
             return (
-                <div>
-                    <h1>Loading...</h1>
+                <div className="d-flex justify-content-center">
+                    <Loader type="TailSpin" color="#49cf81" height={80} width={80} />
                 </div>
             )
         }

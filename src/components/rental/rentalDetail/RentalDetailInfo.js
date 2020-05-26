@@ -1,5 +1,4 @@
 import React from 'react'
-import { RentalAssets } from './RentalAssets';
 import Reviews from 'components/review/Reviews';
 import { rentalType } from 'helpers';
 

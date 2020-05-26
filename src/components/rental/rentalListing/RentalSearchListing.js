@@ -14,49 +14,80 @@ class RentalSearchListing extends React.Component {
         }
     }
     componentWillMount() {
-        const searchQuery = queryString.parse(this.props.location.search).search;
-        const page = queryString.parse(this.props.location.search).page;
-
-        this.searchRentals(searchQuery, page);
+        const { searchedQuery, page } = this.state;
+        // searchedQuery = queryString.parse(this.props.location.search).search;
+        // page = queryString.parse(this.props.location.search).page || page;
+        this.searchRentals(searchedQuery, page);
     }
 
     componentDidUpdate() {
         const { searchedQuery, page } = this.state;
 
         const currentSearchQuery = queryString.parse(this.props.location.search).search;
-        const currentPage = queryString.parse(this.props.location.search).page;
+        const currentPage = queryString.parse(this.props.location.search).page || 1;
 
         if (currentSearchQuery !== searchedQuery || currentPage !== page) {
             this.searchRentals(currentSearchQuery, currentPage);
         }
     }
 
-    searchRentals(searchQuery, page) {
+    searchRentals(searchedQuery, page) {
         this.setState({
-            searchedQuery: searchQuery,
+            searchedQuery: searchedQuery,
             page: page
         });
-        this.props.dispatch(actions.fetchRentals(searchQuery, null, page));
+        this.props.dispatch(actions.fetchRentals(searchedQuery, page));
     }
 
-    getPaginationComponent(page){
-        return(
-            <nav aria-label="...">
-                    <ul class="pagination">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">Previous</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">page</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
+    goToPage(searchedQuery, page) {
+        const { history } = this.props;
+
+        let bigString = '/rentals';
+        if (!!searchedQuery || !!page) {
+            bigString += '?';
+            let queryComponents = [];
+            if (searchedQuery) {
+                queryComponents.push(`search=${searchedQuery}`);
+            }
+            if (page) {
+                queryComponents.push(`page=${page}`);
+            }
+            bigString += queryComponents.join("&");
+            history.push(bigString);
+        }
+        else {
+            history.push(bigString);
+        }
+    }
+
+    getPaginationComponent(searchedQuery, page, rentalCount) {
+        console.log(page);
+        return (
+            <div className="d-flex justify-content-center mt-4">
+                <nav aria-label="...">
+                    <ul className="pagination">
+                        {
+                            (page > 1) &&
+                            <li className="page-item">
+                                <a className="page-link" onClick={() => this.goToPage(searchedQuery, +page - 1)}>Previous</a>
+                            </li>
+                        }
+                        <li className="page-item"><a className="page-link">{page}</a></li>
+                        {
+                            (rentalCount > 0) &&
+                            <li className="page-item">
+                                <a className="page-link" onClick={() => this.goToPage(searchedQuery, +page + 1)}>Next</a>
+                            </li>
+                        }
                     </ul>
                 </nav>
+            </div>
+
         )
     }
 
     render() {
-        const { searchedQuery } = this.state;
+        const { searchedQuery, page } = this.state;
         const { rentals, errors } = this.props;
         return (
             <section id='rentalListing'>
@@ -69,7 +100,7 @@ class RentalSearchListing extends React.Component {
                     <h3 className='page-title'>{errors[0].detail}</h3>
                 }
                 <RentalList rentals={rentals} />
-                
+                {this.getPaginationComponent(searchedQuery, page, rentals.length)}
             </section>
         )
     }

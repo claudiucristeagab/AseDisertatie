@@ -23,6 +23,7 @@ import Login from 'components/login/Login';
 import Register from 'components/register/Register';
 
 import 'App.css';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 const store = init();
 
