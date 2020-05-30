@@ -10,19 +10,19 @@ class RentalDetail extends React.Component {
     constructor() {
         super();
         this.state = {
-            score: 1
+            score: 0
         }
     }
 
     componentWillMount() {
         const rentalId = this.props.match.params.id;
         this.props.dispatch(actions.fetchRentalById(rentalId));
-        actions.getScoreForRental(rentalId)
-            .then((score) => {
-                this.setState({
-                    score
-                });
-            });
+        // actions.getScoreForRental(rentalId)
+        //     .then((score) => {
+        //         this.setState({
+        //             score
+        //         });
+        //     });
     }
 
     render() {

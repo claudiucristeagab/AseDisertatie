@@ -82,12 +82,13 @@ exports.getRentalRating = function (req, res) {
 
   Review.aggregate([
     { "$unwind": "$rental" },
+    //{ "$match": { "rental": rentalId } },
     {
       "$group": {
         "_id": rentalId,
         "ratingAvg": { "$avg": "$rating" }
       }
-    }], 
+    }],
     function (err, result) {
       if (err) {
         return res.status(422).send({ errors: normalizeErrors(err.errors) });

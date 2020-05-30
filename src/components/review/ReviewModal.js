@@ -3,7 +3,6 @@ import Modal from 'react-responsive-modal';
 import StarRatings from 'react-star-ratings';
 import * as actions from 'actions';
 import { toast } from 'react-toastify';
-import { ResultError } from 'components/shared/form/ResultError'
 
 export class ReviewModal extends React.Component {
 

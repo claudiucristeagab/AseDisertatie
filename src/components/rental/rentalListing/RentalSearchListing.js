@@ -2,7 +2,7 @@ import React from 'react'
 import { RentalList } from './RentalList'
 import { connect } from 'react-redux';
 import * as actions from 'actions';
-import queryString from 'query-string';
+// import queryString from 'query-string';
 
 class RentalSearchListing extends React.Component {
 
@@ -22,9 +22,11 @@ class RentalSearchListing extends React.Component {
 
     componentDidUpdate() {
         const { searchedQuery, page } = this.state;
-
-        const currentSearchQuery = queryString.parse(this.props.location.search).search;
-        const currentPage = queryString.parse(this.props.location.search).page || 1;
+        const urlParser = new URLSearchParams(window.location.search);
+        // const currentSearchQuery = queryString.parse(this.props.location.search).search;
+        // const currentPage = queryString.parse(this.props.location.search).page || 1;
+        const currentSearchQuery = urlParser.get('search');
+        const currentPage = urlParser.get('page') || 1;
 
         if (currentSearchQuery !== searchedQuery || currentPage !== page) {
             this.searchRentals(currentSearchQuery, currentPage);
