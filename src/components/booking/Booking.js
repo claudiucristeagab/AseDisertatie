@@ -6,6 +6,7 @@ import * as actions from 'actions';
 import { toast } from 'react-toastify';
 import { getRangedDates } from 'helpers';
 import { BookingModal } from './BookingModal';
+import Payment from '../payment/Payment';
 
 class Booking extends React.Component {
 
@@ -20,7 +21,8 @@ class Booking extends React.Component {
         startAt: '',
         endAt: '',
         guests: 1,
-        rental: {}
+        rental: {},
+        paymentToken: ''
       },
       modal: {
         isOpen: false
@@ -34,6 +36,7 @@ class Booking extends React.Component {
     this.cancelConfirmation = this.cancelConfirmation.bind(this);
     this.confirmBooking = this.confirmBooking.bind(this);
     this.reserveBooking = this.reserveBooking.bind(this);
+    this.setPaymentToken = this.setPaymentToken.bind(this);
   }
 
   componentWillMount() {
@@ -85,6 +88,14 @@ class Booking extends React.Component {
         isOpen: false
       }
     });
+  }
+
+  setPaymentToken(paymentToken) {
+    const {proposedBooking} = this.state;
+    proposedBooking.paymentToken = paymentToken;
+    this.setState({
+      proposedBooking
+    })
   }
 
   addNewBookedOutDays(booking) {
@@ -170,7 +181,7 @@ class Booking extends React.Component {
 
   render() {
     const { rental, auth: {isAuth} } = this.props;
-    const { guests } = this.state.proposedBooking;
+    const { guests, paymentToken } = this.state.proposedBooking;
     return (
       <div className='booking'>
         <h3 className='booking-price'>${rental.dailyRate} <span className='booking-per-night'>per night</span></h3>
@@ -189,7 +200,10 @@ class Booking extends React.Component {
           closeModal={this.cancelConfirmation}
           reserveBooking={this.reserveBooking}
           rental={this.props.rental}
-          errors={this.state.errors} />
+          errors={this.state.errors} 
+          acceptPayment={() => <Payment setPaymentToken={this.setPaymentToken}/>}
+          disabled={!paymentToken}
+        />
       </div>
     )
   }
