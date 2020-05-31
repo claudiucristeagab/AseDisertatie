@@ -34,6 +34,7 @@
     "redux": "^3.7.2",
     "redux-form": "^7.3.0",
     "redux-thunk": "^2.2.0",
+    "stripe": "^8.56.0",
     "uuid": "^8.0.0",
     "winston": "^3.2.1"
   },
