@@ -1,4 +1,5 @@
 import React from 'react'
+import { toast } from 'react-toastify';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 
 const formStyles = () => {
@@ -60,8 +61,9 @@ class CheckoutForm extends React.Component {
                         this.setState({
                             error: undefined
                         });
+                        setPaymentToken(payload.token.id)
+                        toast.success('Card accepted.');
                     }
-                    setPaymentToken(payload.token.id)
                 }
             )
         }

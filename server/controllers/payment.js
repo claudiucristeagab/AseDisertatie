@@ -86,23 +86,18 @@ exports.declinePayment = function (req, res) {
 
             const { booking } = foundPayment;
 
-            BookingModel.update({_id: booking._id}, { status: 'declined' }, (err, updatedBooking) => {
+            foundPayment.status = 'declined';
+            foundPayment.save(function (err) {
                 if (err) {
                     return res.status(422).send({ errors: mongooseHelper.normalizeErrors(err.errors) });
                 }
-                return res.json({ status: 'deleted' });
+
+                BookingModel.update({ _id: booking._id }, { status: 'declined' }, (err, updatedBooking) => {
+                    if (err) {
+                        return res.status(422).send({ errors: mongooseHelper.normalizeErrors(err.errors) });
+                    }
+                    return res.json({ status: 'declined' });
+                })
             })
-            // BookingModel.deleteOne({ id: booking._id }, (err, deletedBooking) => {
-            //     if (err) {
-            //         return res.status(422).send({ errors: mongooseHelper.normalizeErrors(err.errors) });
-            //     }
-
-            //     PaymentModel.update({ _id: paymentId }, { status: 'declined' }, function () { });
-            //     RentalModel.update({ _id: booking.rental }, { status: 'declined' }, () => { });
-
-            //     return res.json({ status: 'deleted' });
-            // })
         })
-
-
 }

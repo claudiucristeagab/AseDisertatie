@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import * as actions from 'actions';
+import * as paymentStatus from 'models/paymentStatus';
 
 import { BookingCard } from './BookingCard';
 import { PaymentCard } from './PaymentCard';
@@ -38,10 +39,10 @@ class BookingManage extends React.Component {
 
     renderPaymentButtons(paymentId) {
         return (
-            <div>
+            <React.Fragment>
                 <button className='btn btn-custom btn-block' onClick={() => this.acceptPayment(paymentId)}>Accept</button>
                 <button className='btn btn-custom btn-block' onClick={() => this.declinePayment(paymentId)}>Decline</button>
-            </div>
+            </React.Fragment>
         )
     }
 
@@ -71,23 +72,23 @@ class BookingManage extends React.Component {
     }
 
     acceptPayment(paymentId) {
-        actions.acceptPayment({paymentId})
+        actions.acceptPayment({ paymentId })
             .then(status => {
                 console.log(status);
                 toast.success('Payment accepted.');
                 this.props.dispatch(actions.getPendingPayments());
             })
-            .catch(err => {console.log(err); toast.error('Payment failed.')})
+            .catch(err => { console.log(err); toast.error('Payment failed.') })
     }
 
     declinePayment(paymentId) {
-        actions.declinePayment({paymentId})
+        actions.declinePayment({ paymentId })
             .then(status => {
                 console.log(status);
                 toast.success('Payment declined.');
                 this.props.dispatch(actions.getPendingPayments());
             })
-            .catch(err => {console.log(err); toast.error('Payment failed.')})
+            .catch(err => { console.log(err); toast.error('Payment failed.') })
     }
 
     renderPendingBookings(payments, isLoading) {
@@ -97,7 +98,7 @@ class BookingManage extends React.Component {
             )
         }
         else {
-            const pendingPayments = payments.filter(x => x.status === 'pending');
+            const pendingPayments = payments.filter(x => x.status === paymentStatus.PENDING);
             if (pendingPayments.length > 0) {
                 return (
                     <div className='row'>
@@ -122,7 +123,7 @@ class BookingManage extends React.Component {
             )
         }
         else {
-            const pendingPayments = payments.filter(x => x.status !== 'pending');
+            const pendingPayments = payments.filter(x => x.status !== paymentStatus.PENDING);
             if (pendingPayments.length > 0) {
                 return (
                     <div className='row'>
@@ -144,15 +145,15 @@ class BookingManage extends React.Component {
         const { userBookings, userBookingsAreLoading, pendingPayments, pendingPaymentsAreLoading } = this.props;
         return (
             <React.Fragment>
-                <section id='userBookings'>
+                <section className='userBookingsAndPayments'>
                     <h1 className='page-title'>My Bookings</h1>
                     {this.renderUserBookings(userBookings, userBookingsAreLoading)}
                 </section>
-                <section id='pendingBookings'>
+                <section className='userBookingsAndPayments'>
                     <h1 className='page-title'>Pending Bookings</h1>
                     {this.renderPendingBookings(pendingPayments, pendingPaymentsAreLoading)}
                 </section>
-                <section id='restOfBookings'>
+                <section className='userBookingsAndPayments'>
                     <h1 className='page-title'>Active or Declined Bookings</h1>
                     {this.renderRestOfBookings(pendingPayments, pendingPaymentsAreLoading)}
                 </section>
