@@ -1,13 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import * as actions from 'actions';
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
+
+import * as actions from 'actions';
+
 import { BookingCard } from './BookingCard';
+import { PaymentCard } from './PaymentCard';
+import CenteredLoading from 'components/shared/loading/CenteredLoading'
 
 class BookingManage extends React.Component {
 
-    componentWillMount() {
+    componentDidMount() {
         this.props.dispatch(actions.fetchUserBookings());
+        this.props.dispatch(actions.getPendingPayments());
     }
 
     renderBookings(userBookings) {
@@ -18,10 +24,31 @@ class BookingManage extends React.Component {
         })
     }
 
-    selectComponent(userBookings, isLoading) {
+    renderPayments(payments) {
+        return payments.map((payment, index) => {
+            return (
+                <PaymentCard key={index}
+                    payment={payment}
+                    booking={payment.booking}
+                    paymentButtons={() => this.renderPaymentButtons(payment._id)}
+                />
+            )
+        })
+    }
+
+    renderPaymentButtons(paymentId) {
+        return (
+            <div>
+                <button className='btn btn-custom btn-block' onClick={() => this.acceptPayment(paymentId)}>Accept</button>
+                <button className='btn btn-custom btn-block' onClick={() => this.declinePayment(paymentId)}>Decline</button>
+            </div>
+        )
+    }
+
+    renderUserBookings(userBookings, isLoading) {
         if (isLoading) {
             return (
-                <h1>Loading...</h1>
+                <CenteredLoading />
             )
         }
         else {
@@ -36,7 +63,77 @@ class BookingManage extends React.Component {
                 return (
                     <div className='alert alert-warning'>
                         You have no bookings created. Go to rentals section and book your place today.
-                        <Link style={{ 'marginLeft': '10px' }} className='btn btn-custom' to='/rentals'>Available Rental</Link>
+                        <Link style={{ 'marginLeft': '10px' }} className='btn btn-custom' to='/rentals'>Explore</Link>
+                    </div>
+                )
+            }
+        }
+    }
+
+    acceptPayment(paymentId) {
+        actions.acceptPayment({paymentId})
+            .then(status => {
+                console.log(status);
+                toast.success('Payment accepted.');
+                this.props.dispatch(actions.getPendingPayments());
+            })
+            .catch(err => {console.log(err); toast.error('Payment failed.')})
+    }
+
+    declinePayment(paymentId) {
+        actions.declinePayment({paymentId})
+            .then(status => {
+                console.log(status);
+                toast.success('Payment declined.');
+                this.props.dispatch(actions.getPendingPayments());
+            })
+            .catch(err => {console.log(err); toast.error('Payment failed.')})
+    }
+
+    renderPendingBookings(payments, isLoading) {
+        if (isLoading) {
+            return (
+                <CenteredLoading />
+            )
+        }
+        else {
+            const pendingPayments = payments.filter(x => x.status === 'pending');
+            if (pendingPayments.length > 0) {
+                return (
+                    <div className='row'>
+                        {this.renderPayments(pendingPayments)}
+                    </div>
+                )
+            }
+            else {
+                return (
+                    <div className='alert alert-warning'>
+                        You have no payments pending.
+                    </div>
+                )
+            }
+        }
+    }
+
+    renderRestOfBookings(payments, isLoading) {
+        if (isLoading) {
+            return (
+                <CenteredLoading />
+            )
+        }
+        else {
+            const pendingPayments = payments.filter(x => x.status !== 'pending');
+            if (pendingPayments.length > 0) {
+                return (
+                    <div className='row'>
+                        {this.renderPayments(pendingPayments)}
+                    </div>
+                )
+            }
+            else {
+                return (
+                    <div className='alert alert-warning'>
+                        You have no payments pending.
                     </div>
                 )
             }
@@ -44,12 +141,23 @@ class BookingManage extends React.Component {
     }
 
     render() {
-        const { userBookings, isLoading } = this.props;
+        const { userBookings, userBookingsAreLoading, pendingPayments, pendingPaymentsAreLoading } = this.props;
         return (
-            <section id='userBookings'>
-                <h1 className='page-title'>My Bookings</h1>
-                {this.selectComponent(userBookings, isLoading)}
-            </section>
+            <React.Fragment>
+                <section id='userBookings'>
+                    <h1 className='page-title'>My Bookings</h1>
+                    {this.renderUserBookings(userBookings, userBookingsAreLoading)}
+                </section>
+                <section id='pendingBookings'>
+                    <h1 className='page-title'>Pending Bookings</h1>
+                    {this.renderPendingBookings(pendingPayments, pendingPaymentsAreLoading)}
+                </section>
+                <section id='restOfBookings'>
+                    <h1 className='page-title'>Active or Declined Bookings</h1>
+                    {this.renderRestOfBookings(pendingPayments, pendingPaymentsAreLoading)}
+                </section>
+            </React.Fragment>
+
         )
     }
 }
@@ -57,7 +165,9 @@ class BookingManage extends React.Component {
 function mapStateToProps(state) {
     return {
         userBookings: state.userBookings.data,
-        isLoading: state.userBookings.isLoading
+        userBookingsAreLoading: state.userBookings.isLoading,
+        pendingPayments: state.payments.data,
+        pendingPaymentsAreLoading: state.payments.isLoading
     }
 }
 

@@ -1,11 +1,12 @@
+const config = require('../config/config.development');
+
 const BookingModel = require('../models/booking');
 const RentalModel = require('../models/rental');
 const UserModel = require('../models/user');
 const PaymentModel = require('../models/payment');
 const mongooseHelper = require('../helpers/mongoose');
 const moment = require('moment');
-const stripe = require('stripe');
-const config = require('../config/config.development');
+const stripe = require('stripe')(config.STRIPE_SECRET_KEY);
 
 exports.createBooking = (req, res) => {
     const { startAt, endAt, totalPrice, guests, days, rental, paymentToken } = req.body;
@@ -21,7 +22,7 @@ exports.createBooking = (req, res) => {
     RentalModel.findById(rental._id)
         .populate('bookings')
         .populate('user')
-        .exec((err, foundRental) => {
+        .exec(async (err, foundRental) => {
             if (err) {
                 return res.status(422).send({ errors: mongooseHelper.normalizeErrors(err.errors) });
             }
@@ -50,7 +51,10 @@ exports.createBooking = (req, res) => {
                 });
             }
 
-            const { payment, err: paymentErr } = createPayment(booking, foundRental.user, paymentToken);
+            booking.user = user;
+            booking.rental = foundRental;
+
+            const { payment, err: paymentErr } = await createPayment(booking, foundRental.user, paymentToken);
             if (paymentErr) {
                 return res.status(422).send({
                     errors: [{
@@ -61,8 +65,6 @@ exports.createBooking = (req, res) => {
             }
 
             booking.payment = payment;
-            booking.user = user;
-            booking.rental = foundRental;
             foundRental.bookings.push(booking);
 
             booking.save((err) => {
@@ -116,23 +118,22 @@ const validateBooking = (booking, rental) => {
     return isValid;
 }
 const createPayment = async (booking, toUser, token) => {
-    const secret = config.STRIPE_SECRET_KEY;
     const { user: fromUser } = booking;
-
+    
     const customer = await stripe.customers.create({
         source: token,
-        user: fromUser.email
+        email: fromUser.email
     })
 
     if (customer) {
         UserModel.update({ _id: fromUser.id }, { $set: { stripeCustomerId: customer.id } }, () => { });
         const payment = new PaymentModel({
             fromUser,
-            toUser,
             fromStripeCustomerId: customer.id,
+            toUser,
             booking,
-            tokenId: token.id,
-            amount: booking.amount * 100 * config.CUSTOMER_SHARE // stripe does not support decimals (cents), then my share
+            amount: booking.totalPrice * 100 * config.CUSTOMER_SHARE, // stripe does not support decimals (cents), then my share
+            tokenId: token
         });
         try {
             const savedPayment = await payment.save();

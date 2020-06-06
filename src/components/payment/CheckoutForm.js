@@ -47,26 +47,31 @@ class CheckoutForm extends React.Component {
     handleSubmit = (event) => {
         const { stripe, setPaymentToken } = this.props;
         event.preventDefault();
-        if(stripe){
+        if (stripe) {
             stripe.createToken().then(
                 payload => {
-                    if(payload.error){
+                    if (payload.error) {
                         setPaymentToken('')
                         return this.setState({
                             error: payload.error.message
+                        });
+                    }
+                    else {
+                        this.setState({
+                            error: undefined
                         });
                     }
                     setPaymentToken(payload.token.id)
                 }
             )
         }
-        else{
+        else {
             console.error("Stripe.js isnt loaded yet.");
         }
     }
 
     render() {
-        const {error} = this.state;
+        const { error } = this.state;
         return (
             <form {...formStyles()} onSubmit={this.handleSubmit}>
                 <CardElement {...createOptions()} />

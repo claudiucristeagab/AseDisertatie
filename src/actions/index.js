@@ -17,6 +17,7 @@ const usersPath = process.env.REACT_APP_API_URI + 'users';
 const bookingsPath = process.env.REACT_APP_API_URI + 'bookings';
 const reviewsPath = process.env.REACT_APP_API_URI + 'reviews';
 const imagesPath = process.env.REACT_APP_API_URI + 'images';
+const paymentsPath = process.env.REACT_APP_API_URI + 'payments';
 
 const axiosInstance = axiosService.getInstance();
 
@@ -173,7 +174,7 @@ export const createBooking = (booking) => {
 
 export const fetchUserBookings = () => {
   return (dispatch) => {
-    dispatch(fetchUserBookingsInit);
+    dispatch(fetchUserBookingsInit());
     axiosInstance.get(bookingsPath + '/manage')
       .then(res => res.data)
       .then((userBookings) => {
@@ -261,6 +262,55 @@ export const createReview = (review, bookingId) => {
     .catch(({ response }) => Promise.reject(response.data.errors))
 }
 
+//#endregion
+
+//#region Payments
+
+export const getPendingPayments = () => {
+  return dispatch => {
+    dispatch(fetchPendingPaymentsInit());
+    axiosInstance.get(paymentsPath)
+      .then(res => res.data)
+      .then(payments => dispatch(fetchPendingPaymentsSuccess(payments)))
+      .catch(({ response }) => dispatch(fetchPendingPaymentsFailure(response.data.errors)))
+  }
+}
+
+const fetchPendingPaymentsInit = (payments) => {
+  return {
+    type: actionTypes.FETCH_PENDING_PAYMENTS_INIT,
+    payments
+  }
+}
+
+const fetchPendingPaymentsSuccess = (payments) => {
+  return {
+    type: actionTypes.FETCH_PENDING_PAYMENTS_SUCCESS,
+    payments
+  }
+}
+
+const fetchPendingPaymentsFailure = (payments) => {
+  return {
+    type: actionTypes.FETCH_PENDING_PAYMENTS_FAILURE,
+    payments
+  }
+}
+
+export const acceptPayment = (paymentId) => {
+  return axiosInstance
+    .post(paymentsPath + '/accept', paymentId)
+    .then(res => res.data)
+    .catch(({ response }) => response.data.errors)
+}
+
+export const declinePayment = (paymentId) => {
+  return axiosInstance
+    .post(paymentsPath + '/decline', paymentId)
+    .then(res => res.data)
+    .catch(({ response }) => response.data.errors)
+
+}
 //#endregion
 
 //#region Images

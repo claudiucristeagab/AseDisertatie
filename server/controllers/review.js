@@ -93,7 +93,6 @@ exports.getRentalRating = function (req, res) {
       if (err) {
         return res.status(422).send({ errors: normalizeErrors(err.errors) });
       }
-      console.log(result);
       if (result[0]) {
         return res.json(result[0]['ratingAvg'])
       }

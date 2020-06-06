@@ -63,7 +63,6 @@ class RentalSearchListing extends React.Component {
     }
 
     getPaginationComponent(searchedQuery, page, rentalCount) {
-        console.log(page);
         return (
             <div className="d-flex justify-content-center mt-4">
                 <nav aria-label="...">

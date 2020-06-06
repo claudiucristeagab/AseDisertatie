@@ -22,11 +22,9 @@ export class RentalCreate extends React.Component {
         debugger;
         actions.uploadImage(rentalData.image).then(
             (imageUrl) => {
-                console.log(imageUrl);
                 const updatedRentalData = {...rentalData, image: imageUrl};
                 actions.createRental(updatedRentalData).then(
                     (rental) => {
-                        console.log(rental);
                         toast.success('Rental property has been listed.');
                         this.setState({ redirect: true, redirectRentalId: rental._id })
                     },
