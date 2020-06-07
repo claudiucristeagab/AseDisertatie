@@ -78,8 +78,8 @@ class CheckoutForm extends React.Component {
             <form {...formStyles()} onSubmit={this.handleSubmit}>
                 <CardElement {...createOptions()} />
                 <p>*Payment needs to be approved.</p>
-                {error && <div className='alert alert-danger'>{error}</div>}
                 <button className='btn btn-custom' {...buttonStyles()}>Confirm payment</button>
+                {error && <div className='alert alert-danger'>{error}</div>}
             </form>
         )
     }

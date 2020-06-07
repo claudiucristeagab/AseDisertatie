@@ -122,7 +122,8 @@ class Booking extends React.Component {
         ...this.state.proposedBooking,
         days,
         totalPrice: days * rental.dailyRate,
-        rental
+        rental,
+        errors: []
       },
       modal: {
         isOpen: true

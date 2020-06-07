@@ -11,7 +11,7 @@ class AxiosService {
     initInstance(){
         this.axiosInstance = axios.create({
             baseURL: '',
-            timeout: 2000
+            timeout: 0
         });
         this.axiosInstance.interceptors.request.use((config) => {
             const token = authService.getToken();

@@ -30,9 +30,24 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 const store = init();
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = { stripe: null };
+  }
 
   componentWillMount() {
     this.checkAuthState();
+  }
+
+  componentDidMount() {
+    const stripePublishableKey = process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY;
+    if (window.Stripe) {
+      this.setState({ stripe: window.Stripe(stripePublishableKey) });
+    } else {
+      document.querySelector('#stripe-js').addEventListener('load', () => {
+        this.setState({ stripe: window.Stripe(stripePublishableKey) });
+      });
+    }
   }
 
   checkAuthState = () => store.dispatch(actions.checkAuthState());
@@ -40,9 +55,8 @@ class App extends Component {
   logoutUser = () => store.dispatch(actions.logout());
 
   render() {
-    const stripePublishableKey = process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY;
     return (
-      <StripeProvider apiKey={stripePublishableKey}>
+      <StripeProvider stripe={this.state.stripe}>
         <Provider store={store}>
           <BrowserRouter>
             <div className="App">

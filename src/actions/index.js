@@ -169,7 +169,7 @@ export const logout = () => {
 export const createBooking = (booking) => {
   return axiosInstance.post(bookingsPath, booking)
     .then(res => res.data)
-    .catch(({ response }) => Promise.reject(response.data.errors))
+    .catch((err) => Promise.reject(err.response.data.errors))
 }
 
 export const fetchUserBookings = () => {
