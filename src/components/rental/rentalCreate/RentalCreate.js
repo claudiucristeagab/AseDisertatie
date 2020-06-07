@@ -48,9 +48,14 @@ export class RentalCreate extends React.Component {
                     <h1 className='page-title'>Create Rental</h1>
                     <RentalCreateForm submitCb={this.createRental}
                         options={this.rentalCateogies}
-                        errors={this.state.errors} />
+                        errors={this.state.errors} 
+                        initialValues={baseInitialValues}
+                        isModify={false}
+                    />
                 </div>
             </section>
         )
     }
 }
+
+const baseInitialValues = { category: 'apartment', bedrooms: 1, beds: 1, guests: 1 }

@@ -34,6 +34,7 @@ export class RentalManageCard extends React.Component {
                     <div className='card-block'>
                         <h4 className='card-title'>{rental.title} - {rental.city}, {rental.country}</h4>
                         <Link className='btn btn-custom btn-block' to={`/rentals/${rental._id}`}>Go to Rental</Link>
+                        <Link className='btn btn-custom btn-block' to={`/rentals/modify/${rental._id}`}>Modify</Link>
                         {rental.bookings.length > 0 && <RentalManageModal bookings={rental.bookings} />}
                         {wantDeletion &&
                             <div>

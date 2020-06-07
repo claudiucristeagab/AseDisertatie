@@ -98,6 +98,11 @@ export const createRental = (rental) => {
     .then(res => res.data, err => Promise.reject(err.response.data.errors));
 }
 
+export const updateRental = (id, rental) => {
+  return axiosInstance.put(`${rentalsPath}/${id}`, rental)
+    .then(res => res.data, err => Promise.reject(err.response.data.errors));
+}
+
 export const deleteRental = (id) => {
   return axiosInstance.delete(`${rentalsPath}/${id}`, id)
     .then(res => res.data, err => Promise.reject(err.response.data.errors));

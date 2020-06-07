@@ -16,6 +16,7 @@ import { Footer } from 'components/shared/Footer';
 
 import RentalDetail from 'components/rental/rentalDetail/RentalDetail';
 import { RentalCreate } from 'components/rental/rentalCreate/RentalCreate';
+import RentalModify from 'components/rental/rentalCreate/RentalModify';
 import RentalSearchListing from 'components/rental/rentalListing/RentalSearchListing';
 import { RentalManage } from 'components/rental/rentalManage/RentalManage';
 
@@ -68,6 +69,7 @@ class App extends Component {
                   <Route exact path="/rentals" component={RentalSearchListing} />
                   <ProtectedRoute exact path="/rentals/create" component={RentalCreate} />
                   <ProtectedRoute exact path="/rentals/manage" component={RentalManage} />
+                  <ProtectedRoute exact path="/rentals/modify/:id" component={RentalModify} />
                   <ProtectedRoute exact path="/bookings/manage" component={BookingManage} />
                   <Route exact path="/rentals/:id" component={RentalDetail} />
                 </Switch>
