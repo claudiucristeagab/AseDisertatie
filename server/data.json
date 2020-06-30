@@ -21,7 +21,7 @@
             "street": "Drumul Padurea Mogosoaia 38",
             "address": "Flat TO38, Floor 2, Ap. 40",
             "category": "apartment",
-            "image": "https://www.greenfieldresidence.ro/pictures/2018/06/18/1581.jpg",
+            "image": "/images/rentals/greenfield.jpg",
             "bedrooms": 1,
             "beds": 1,
             "guests": 2,
@@ -45,12 +45,12 @@
     ],
     "users": [
         {
-            "username": "Ion Tiriac",
+            "username": "Justinian I",
             "email": "owner@email.com",
             "password": "password"
         },
         {
-            "username": "Paul Popescu",
+            "username": "Claudiu Cristea",
             "email": "user@email.com",
             "password": "password"
         }
