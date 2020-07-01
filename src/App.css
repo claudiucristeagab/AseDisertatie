@@ -114,32 +114,32 @@
 .daterangepicker td.active {
   background-color: #49cf81 !important; }
 
-#userBookings .card {
+.userBookingsAndPayments .card {
   margin-bottom: 20px; }
 
-#userBookings h1 {
+.userBookingsAndPayments h1 {
   margin-bottom: 20px; }
 
-#userBookings .card-block {
+.userBookingsAndPayments .card-block {
   padding: 20px; }
 
-#userBookings .card-header {
+.userBookingsAndPayments .card-header {
   text-transform: capitalize; }
 
-#userBookings .card-title {
+.userBookingsAndPayments .card-title {
   font-size: 18px; }
 
-#userBookings .booking-desc {
+.userBookingsAndPayments .booking-desc {
   font-size: 14px; }
 
-#userBookings .booking-days {
+.userBookingsAndPayments .booking-days {
   font-size: 14px;
   font-weight: bold; }
 
-#userBookings .booking-price-value {
+.userBookingsAndPayments .booking-price-value {
   font-weight: 700; }
 
-#userBookings .btn-custom {
+.userBookingsAndPayments .btn-custom {
   color: white;
   font-size: 14px;
   padding: 15px; }

@@ -9,7 +9,7 @@ import * as validators from 'validators/validators';
 // import { required, minLength4 } from 'components/shared/form/validators';
 
 const RentalCreateForm = (props) => {
-    const { handleSubmit, pristine, submitting, submitCb, valid, options, errors } = props
+    const { handleSubmit, pristine, submitting, submitCb, valid, options, errors, isModify } = props
     return (
         <form onSubmit={handleSubmit(submitCb)}>
             <div className='row'>
@@ -111,9 +111,16 @@ const RentalCreateForm = (props) => {
                         component={FileUploadField}
                         validate={[validators.required]}
                     />
-                    <button className='btn btn-custom btn-form btn-block' type="submit" disabled={!valid || pristine || submitting}>
-                        Create Rental
-                    </button>
+                    {
+                        isModify ?
+                            <button className='btn btn-custom btn-form btn-block' type="submit" disabled={!valid || pristine || submitting}>
+                                Modify Rental
+                            </button> :
+                            <button className='btn btn-custom btn-form btn-block' type="submit" disabled={!valid || pristine || submitting}>
+                                Create Rental
+                            </button>
+                    }
+
                 </div>
             </div>
             <ResultError errors={errors} />
@@ -122,6 +129,5 @@ const RentalCreateForm = (props) => {
 }
 
 export default reduxForm({
-    form: 'rentalCreateForm',
-    initialValues: { shared: false, category: 'apartment', bedrooms: 1, beds: 1, guests: 1 }
+    form: 'rentalCreateForm'
 })(RentalCreateForm)

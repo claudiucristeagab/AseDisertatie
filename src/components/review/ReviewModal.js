@@ -42,16 +42,14 @@ export class ReviewModal extends React.Component {
     postReview = () => {
         const { bookingId } = this.props;
         const { text, rating } = this.state;
-        console.log(bookingId, text, rating);
         actions.createReview({ text, rating }, bookingId)
             .then(
                 review => {
-                    console.log(review);
                     this.closeModal();
                     toast.success('Review created');
                 },
                 errors => {
-                    console.log(errors);
+                    console.error(errors);
                     toast.error(errors[0].detail);
                 })
     }

@@ -24,6 +24,7 @@ const userSchema = new Schema({
         max: [128, 'Too long, max is 128 characters'],
         required: 'Password is required'
     },
+    stripeCustomerId: { type: String },
     rentals: [{type: Schema.Types.ObjectId, ref: 'Rental'}],
     bookings: [{type: Schema.Types.ObjectId, ref: 'Booking'}],
     createdAt: { type: Date, default: Date.now }

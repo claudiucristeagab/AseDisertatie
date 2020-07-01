@@ -19,3 +19,5 @@ export const getRangedDates = (startDate, endDate, dateFormat) => {
 export const formatDate = (date) => {
     return moment(date).format('Y/MM/DD');
 }
+
+export const formatStripeAmount = amount => amount/100;

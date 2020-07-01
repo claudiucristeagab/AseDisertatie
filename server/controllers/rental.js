@@ -5,7 +5,7 @@ const ReviewModel = require('../models/review');
 const { logger } = require('../services/logger')
 const fs = require('fs');
 
-const {PAGE_SIZE} = require('../config/config.development');
+const { PAGE_SIZE } = require('../config/config.development');
 const mongooseHelper = require('../helpers/mongoose');
 
 exports.getRentals = (req, res) => {
@@ -30,8 +30,8 @@ exports.getRentals = (req, res) => {
     //     query["user"] = ObjectId(searchedUser);
     // }
     let docsToSkip = 0;
-    if(!!page){
-        docsToSkip = PAGE_SIZE * (page-1);
+    if (!!page) {
+        docsToSkip = PAGE_SIZE * (page - 1);
     }
 
     RentalModel.find(query)
@@ -138,22 +138,23 @@ exports.updateRental = (req, res) => {
     const user = res.locals.user;
     const { title, country, city, street, address, category, image, bedrooms, beds, guests, description, dailyRate }
         = req.body;
-    RentalModel.findOneAndUpdate({
-        _id: id,
-        user: {
-            _id: user.id
-        }
-    },
-        {
-            title, description, country, city, street, address, category, bedrooms, beds, guests, dailyRate, image
-        },
-        ((err, foundRental) => {
+
+    RentalModel.findById(id)
+        .populate('user')
+        .exec((err, foundRental) => {
             if (err) {
                 return res.status(422).send({ errors: mongooseHelper.normalizeErrors(err.errors) });
             }
             if (foundRental.user.id !== user.id) {
                 return res.status(422).send({ errors: [{ title: 'Invalid user', detail: 'Cannot modify a rental that you do not own.' }] });
             }
-            return res.json(foundRental);
-        }))
+            foundRental.set({ title, country, city, street, address, category, image, bedrooms, beds, guests, description, dailyRate });
+            foundRental.save(function (err) {
+                if (err) {
+                    return res.status(422).send({ errors: normalizeErrors(err.errors) });
+                }
+
+                return res.json(foundRental);
+            });
+        })
 }

@@ -25,12 +25,13 @@ export class RentalManageModal extends React.Component {
     }
 
     renderBookings(bookings) {
+        console.log(bookings);
         return bookings.map((booking, index) =>
             <React.Fragment key={index}>
                 <p><span>Dates: </span>{formatDate(booking.startAt)} - {formatDate(booking.endAt)}</p>
                 <p><span>Guests: </span>{booking.guests}</p>
                 <p><span>Total Price: </span>${booking.totalPrice}</p>
-                <p><span>Total bookings: </span>${booking}</p>
+                <p><span>Status: </span>{booking.status}</p>
                 <hr></hr>
             </React.Fragment>
         )

@@ -2,6 +2,7 @@ const Rental = require('./models/rental');
 const User = require('./models/user');
 const Booking = require('./models/booking');
 const Review = require('./models/review');
+const Payment = require('./models/payment');
 const {logger} = require('./services/logger')
 
 const mockDbData = require('./data.json');
@@ -34,6 +35,7 @@ class MockDb {
         await User.remove();
         await Booking.remove();
         await Review.remove();
+        await Payment.remove();
         logger.info('Cleaned database');
     }
 
