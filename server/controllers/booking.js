@@ -5,6 +5,7 @@ const RentalModel = require('../models/rental');
 const UserModel = require('../models/user');
 const PaymentModel = require('../models/payment');
 const mongooseHelper = require('../helpers/mongoose');
+const { logger } = require('../services/logger')
 const moment = require('moment');
 const stripe = require('stripe')(config.STRIPE_SECRET_KEY);
 
@@ -120,10 +121,19 @@ const validateBooking = (booking, rental) => {
 const createPayment = async (booking, toUser, token) => {
     const { user: fromUser } = booking;
     
-    const customer = await stripe.customers.create({
-        source: token,
-        email: fromUser.email
-    })
+    let customer = {};
+
+    if (fromUser.stripeCustomerId){
+        customer = await stripe.customers.retrieve(fromUser.stripeCustomerId);
+        logger.info(`User with id ${fromUser.id} has Stripe customer Id ${customer.id}`);
+    }
+    else {
+        customer = await stripe.customers.create({
+            source: token,
+            email: fromUser.email
+        })
+        logger.info(`User with id ${fromUser.id} was assigned Stripe customer Id ${customer.id}`);
+    }
 
     if (customer) {
         UserModel.update({ _id: fromUser.id }, { $set: { stripeCustomerId: customer.id } }, () => { });
