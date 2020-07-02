@@ -17,12 +17,12 @@ class RentalDetail extends React.Component {
     componentWillMount() {
         const rentalId = this.props.match.params.id;
         this.props.dispatch(actions.fetchRentalById(rentalId));
-        // actions.getScoreForRental(rentalId)
-        //     .then((score) => {
-        //         this.setState({
-        //             score
-        //         });
-        //     });
+        actions.getScoreForRental(rentalId)
+            .then((score) => {
+                this.setState({
+                    score
+                });
+            });
     }
 
     render() {

@@ -1,8 +1,10 @@
 const Review = require('../models/review');
 const Booking = require('../models/booking');
 const moment = require('moment');
+const mongoose = require('mongoose');
 
 const { normalizeErrors } = require('../helpers/mongoose');
+const rental = require('../models/rental');
 
 
 exports.getReviews = function (req, res) {
@@ -80,25 +82,42 @@ exports.createReview = function (req, res) {
 exports.getRentalRating = function (req, res) {
   const rentalId = req.params.id;
 
-  Review.aggregate([
-    { "$unwind": "$rental" },
-    //{ "$match": { "rental": rentalId } },
-    {
-      "$group": {
-        "_id": rentalId,
-        "ratingAvg": { "$avg": "$rating" }
-      }
-    }],
-    function (err, result) {
+  Review.aggregate()
+    .match({ rental: mongoose.Types.ObjectId(rentalId) })
+    // .unwind('$rental')
+    .group({
+      _id: null,
+      average: { $avg: '$rating' }
+    })
+    .exec(function (err, result) {
       if (err) {
         return res.status(422).send({ errors: normalizeErrors(err.errors) });
       }
       if (result[0]) {
-        return res.json(result[0]['ratingAvg'])
+        return res.json(result[0]['average'])
       }
 
       return res.json(null)
-    })
+    });
+  // Review.aggregate([
+  //   // {
+  //   //   $match: { $rental: rentalId }
+  //   // },
+  //   {
+  //     $group: {
+  //       _id: null,
+  //       average: { $avg: '$rating' }
+  //     }
+  //   }], function (err, result) {
+  //     if (err) {
+  //       return res.status(422).send({ errors: normalizeErrors(err.errors) });
+  //     }
+  //     if (result[0]) {
+  //       return res.json(result[0]['average'])
+  //     }
+
+  //     return res.json(null)
+  //   })
 }
 
 
